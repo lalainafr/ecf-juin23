@@ -1,0 +1,33 @@
+*
+{
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+}
+
+.passion
+{
+    font-family: 'Passions Conflict', cursive;
+    font-size: 40px;
+}
+
+.amatic{
+    font-family: 'Amatic SC', cursive;
+}
+
+.img-favicon{
+    width: 25px;
+}
+
+
+.caroussel-image{
+    width: 100%;
+}
+
+.image5{
+    width: 80%;
+}
+
+.subtitle{
+    font-size: 30px;
+}
+
