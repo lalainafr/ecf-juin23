@@ -42,13 +42,13 @@ class AppFixtures extends Fixture
             
             //création de 5 utilisateurs avec un mot de passe 'password' qui sera encodé
             for ($i=0; $i < 5; $i++) { 
-                $user = new User();
-                $user->setFullName($this->faker->name())
+                $client = new User();
+                $client->setFullName($this->faker->name())
                 ->setEmail($this->faker->email())
                 ->setRoles(['ROLE_USER'])
-                ->setPassword($this->hasher->hashPassword($user, 'password'));
-                $users[] = $user;    
-                $manager->persist($user);
+                ->setPassword($this->hasher->hashPassword($client, 'password'));
+                $users[] = $client;    
+                $manager->persist($client);
             }
 
             $manager->flush();
