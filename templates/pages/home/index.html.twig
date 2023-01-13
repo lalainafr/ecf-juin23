@@ -10,15 +10,18 @@
         {{ message }}
     </div>
 {% endfor %}
+
 <div>
     <h1 class="amatic text-info">Bienvenu au restaurant   ' Q U A I _ A N T I Q U E ' </h1>
     <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
+
 <section>
+{# Carrousel pour présenter le restaurant #}
   <article>
   <div>
   <br>
-    <img src="/images/coutellerie.png" alt="img-table" class="img-favicon">
-    <h2 class="passion text-secondary">Nos cliens ont eu une préférence sur les plats suivants ...</h2>    
+    <img src="/images/flaticon/coutellerie.png" alt="img-table" class="img-flaticon">
+    <h2 class="passion text-secondary">Un endroit convivial pour se retrouver et explorer ensemble un saveur gastronomique hors du commun ...</h2>    
   </div>
      <div class="caroussel-image">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -46,11 +49,13 @@
     </div>
   </article>
   <br>
-  <article>  
+
+  {# Information sur le chef et un bouton pour réserver #}
+  <article class="article_home p-4">  
     <div class="row">
         <div>
-            <img src="/images/chef.png" alt="image accueil" class="img-favicon"> 
-            <h2 class="passion text-secondary">Un chef etoilé avec un savoir faire hors norme ... </h2>
+            <img src="/images/flaticon/chef.png" alt="image accueil" class="img-flaticon"> 
+            <h2 class="passion text-secondary">Un chef etoilé avec un savoir faire exceptioinel qui met à votre disposition ses compétences ... </h2>
         </div>
             <br>
             <div class="col-md-3">
@@ -73,8 +78,26 @@
         </div>
     </div>
     </article>
-   
-  
+   <br>
+
+   {# Liste de plats préférés par les clients #}
+    <article >
+    <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon">
+    <h2 class="passion text-secondary">Nos clients ont eu une préférence particulière sur les plats exceptionnels suivants ...</h2> 
+    <div class="d-flex flex-wrap">
+        {% for dish in dishes %}
+                <div class="image_container">
+                    <div class="img">
+                        <img class ='image' src="{{ dish.image }}" alt="photo plat">  
+                    </div>
+                    <div class="middle">
+                        <div class="text"> {{dish.title}} </div>
+                    </div>
+                    <p class="mr-5">Ce plat a été crée le:  {{dish.createdAt|date("d/m/Y")}}</p>
+                </div>
+        {% endfor %}
+    </div>
+    </article>
 </section>
 </div>
 {% endblock %}
