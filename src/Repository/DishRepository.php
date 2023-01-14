@@ -48,6 +48,7 @@ class DishRepository extends ServiceEntityRepository
        return $this->createQueryBuilder('d')
            ->andWhere('d.isFavorite = :val')
            ->setParameter('val', true)
+           ->setMaxResults(6)
            ->orderBy('d.id', 'ASC')
            ->getQuery()
            ->getResult()

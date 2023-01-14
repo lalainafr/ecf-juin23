@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(DishRepository $dishRepository): Response
     {
-        $dishes = $dishRepository->findAll();
+        $dishes = $dishRepository->findByFavoriteDish();
         return $this->render('pages/home/index.html.twig', [
             'dishes' => $dishes,
         ]);

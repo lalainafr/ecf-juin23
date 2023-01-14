@@ -23,8 +23,10 @@
     width: 100%;
 }
 
-.image5{
-    width: 80%;
+.image4{
+    width: 210px;
+    height: 250px;
+    margin-bottom: 20px;
 }
 
 .subtitle{
@@ -42,14 +44,14 @@
 /* HOVER IMAGE HOMEPAGE */
 .image_container {
     position: relative;
-    width: 50%;
+    width: 100%;
   }
   
 .image {
     opacity: 1;
-    display: block;
-    width:120px;
-    height: 100px;
+    display:inline;
+    width:170px;
+    height: 150px;
     transition: .5s ease;
     backface-visibility: hidden;
     margin: 10px;
@@ -59,8 +61,8 @@
     transition: .5s ease;
     opacity: 0;
     position: absolute;
-    top: 45%;
-    left: 22%;
+    top: 130px;
+    left: 140px;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
@@ -82,18 +84,41 @@
 } 
 
 
-/* Responsive for device more than 507px */
-@media screen and (min-width: 507px){
+ /* Responsive for device more than 343px */
+@media screen and (min-width: 331px){
     .image {
-    width: 180px;
-    height: 160px;
-    }     
+    width: 200px;
+    height: 180px;
+    }    
+    .middle {
+        top: 100px;
+        left: 110px;
+    } 
+}
+ /* Responsive for device more than 573px */
+@media screen and (min-width: 573px){
+    /* .image {
+    width: 200px;
+    height: 180px;
+    }    
+    .middle {
+        top: 100px;
+        left: 110px;
+    }  */
 }
 
-/* Responsive for device more than 780px */
-@media screen and (min-width: 780px){
+/* Responsive for device more than 769px */
+@media screen and (min-width: 769px){
     .image {
         width: 260px;
         height: 240px;
     }   
-}
+    .middle {
+        top: 130px;
+        left: 140px;
+    } 
+    .image4{
+        width: 80%;
+        height: auto;
+    }
+}  

@@ -15,7 +15,6 @@
     <h1 class="amatic text-info">Bienvenu au restaurant   ' Q U A I _ A N T I Q U E ' </h1>
     <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
 
-<section>
 {# Carrousel pour présenter le restaurant #}
   <article>
   <div>
@@ -51,53 +50,57 @@
   <br>
 
   {# Information sur le chef et un bouton pour réserver #}
-  <article class="article_home p-4">  
+  <article class="article_home p-6">  
     <div class="row">
         <div>
             <img src="/images/flaticon/chef.png" alt="image accueil" class="img-flaticon"> 
             <h2 class="passion text-secondary">Un chef etoilé avec un savoir faire exceptioinel qui met à votre disposition ses compétences ... </h2>
         </div>
             <br>
-            <div class="col-md-3">
-                <img src="/images/img5.jpg" alt="image accueil" class="image5">
-            </div>
-        <div class="col-md-9">
-        <div class="row">
-            <div class="col-md-6">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis animi dolorem fugiat aliquid doloremque rerum nemo, neque non repudiandae adipisci ipsum et odit, ducimus laudantium molestias amet, eaque cumque similique?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo suscipit tempore ea eius incidunt nam at quos perspiciatis non eveniet, magnam, adipisci distinctio quo animi illum numquam. Voluptates consequuntur quod ipsa hic culpa expedita iusto at ratione molestiae nobis veritatis commodi non a asperiores est voluptatem, illo velit reiciendis debitis quibusdam. Voluptatum sunt molestiae debitis voluptate, enim ut neque. Nobis?</p>
-            </div> 
-            <div class="col-md-6">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>
-                <br>
-                <p>N'attendez plus pour réserver votre table...</p>
-                <a class="btn btn-info btn" href="#" role="button">Reserver</a>
+        <div class="col-md-4">
+            <img src="/images/img4.jpg" alt="image accueil" class="image4">
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis animi dolorem fugiat aliquid doloremque rerum nemo, neque non repudiandae adipisci ipsum et odit, ducimus laudantium molestias amet, eaque cumque similique?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>onsectetur adipisicing elit. Nemo suscipit tempore ea eius incidunt nam at quos perspiciatis non eveniet, magnam, adipisci distinctio quo animi illum numquam. Voluptates consequuntur quod ipsa hic culpa expedita iusto at ratione molestiae nobis veritatis commodi non a asperiores est voluptatem, illo velit reiciendis debitis quibusdam. Voluptatum sunt molestiae debitis voluptate, enim ut neque. Nobis?</p>
                 </div> 
-            </div>
+                <div class="col-md-6">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>
+                    <br>
+                    <p>N'attendez plus pour réserver votre table...</p>
+                    <a class="btn btn-info btn" href="#" role="button">Reserver</a>
+                    </div> 
+                </div>
         </div>
     </div>
     </article>
    <br>
 
    {# Liste de plats préférés par les clients #}
-    <article >
+   <article >
     <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon">
     <h2 class="passion text-secondary">Nos clients ont eu une préférence particulière sur les plats exceptionnels suivants ...</h2> 
-    <div class="d-flex flex-wrap">
-        {% for dish in dishes %}
-                <div class="image_container">
-                    <div class="img">
-                        <img class ='image' src="{{ dish.image }}" alt="photo plat">  
+         <div class="container">
+            <div class="row">
+                {% for dish in dishes %}
+                <div class="col-sm">
+                    <div class="image_container">
+                        <div>
+                            <img class ='image' src="{{ dish.image }}" alt="photo plat">  
+                        </div>
+                        <div class="middle">
+                            <div class="text"> {{dish.title}} </div>
+                        </div>
+                        <p class="mr-5">Ce plat a été crée le:  {{dish.createdAt|date("d/m/Y")}}</p>
                     </div>
-                    <div class="middle">
-                        <div class="text"> {{dish.title}} </div>
-                    </div>
-                    <p class="mr-5">Ce plat a été crée le:  {{dish.createdAt|date("d/m/Y")}}</p>
                 </div>
-        {% endfor %}
-    </div>
+            {% endfor %}    
+            </div> 
+        </div>
+
     </article>
-</section>
+
 </div>
 {% endblock %}
