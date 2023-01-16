@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\Dish;
 use App\Entity\User;
 use Faker\Generator;
+use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\File\File;
@@ -54,16 +55,24 @@ class AppFixtures extends Fixture
                 $users[] = $client;    
                 $manager->persist($client);
             }
+            
+        //CATEGORY    
+        $listCategory = ['Entrée','Plat de resistance', 'Dessert', 'Burger'];
+        for ($i=0; $i < 4; $i++) { 
+            $category = new Category();
+            $category->setName($listCategory[$i]);
+            $categories[] = $category;
+            $manager->persist($category);
+        } 
 
         //PLAT
-
-
         for ($i=0; $i < 12; $i++) { 
             $dish = new Dish();
             $dish->setTitle('plat - ' . strtoupper($this->faker->text(10)));
             $dish->setDescription($this->faker->text(200));
             $dish->setPrice($this->faker->numberBetween(0, 1000));
             $dish->setIsFavorite(mt_rand(0,1) == 1 ? true : false);
+            $dish->setCategory($this->faker->randomElement($categories));
 
             $img0 =  'https://cdn.pixabay.com/photo/2016/03/17/23/30/salad-1264107_960_720.jpg';
             $img1 =  'https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg';

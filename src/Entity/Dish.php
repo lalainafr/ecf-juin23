@@ -43,6 +43,9 @@ class Dish
     #[ORM\Column]
     private ?bool $isFavorite = null;
 
+    #[ORM\ManyToOne(inversedBy: 'dishes')]
+    private ?Category $Category = null;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -145,6 +148,18 @@ class Dish
     public function setIsFavorite(bool $isFavorite): self
     {
         $this->isFavorite = $isFavorite;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): self
+    {
+        $this->Category = $Category;
 
         return $this;
     }
