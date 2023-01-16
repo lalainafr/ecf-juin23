@@ -5,11 +5,13 @@
 {% block body %}
 <div class="container mt-2">
 
- {% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
+ {% if app.user %} 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}  
 
 <div>
     <h1 class="amatic text-info">Bienvenu au restaurant   ' Q U A I _ A N T I Q U E ' </h1>

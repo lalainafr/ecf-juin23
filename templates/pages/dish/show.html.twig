@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une carte{% endblock %}
+
+{% block body %}
+<div class="container mt-2">
+
+ <h1 class="amatic text-info"> Détail de la carte du ...   '{{ dish.title}}' </h1>
+
+<br>
+<br>
+
+ {# Liste des plats #}
+   <article >
+    <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
+    <br>
+
+  <div class="row">
+    <div class="col-md-6 mt-2 mb-2">
+        <div>
+          {% if dish.image %}
+            <img class="detail-img" src="{{dish.image}}">  
+          {% else %}
+            <img src="{{vich_uploader_asset(dish, 'imageFile')}}">
+          {% endif %}  
+        </div>
+        <div class='text-secondary'> 
+          <small> Le plat à été créé le: 
+            {{dish.createdAt| date('d/m/Y')}} </small>
+        </div>  
+    </div>
+      <div class="col-md-6 mt-2">  
+        <div> 
+        <span class="detail-label">Ce plat a comme dénomination: <br> </span>
+          '{{dish.title}}'
+        </div>
+        <br>
+        <div> 
+        <span class="detail-label">Description du plat: <br></span>
+          {{dish.description}}
+        </div>
+        <br>
+        <div> 
+        <span class="detail-label">Le plat est proposé au prix de: <br></span>
+          {{dish.price}} €
+        </div>
+        <br>
+        <div> 
+        <span class="detail-label">Le plat appartient à la catégorie:<br> </span>
+        {{dish.category}}
+        </div>
+        <br>
+      </div>
+    </div>
+    </article>
+  <br>
+    <a href="{{path('app_dish')}}">Revenir à la carte</a>
+</div>
+{% endblock %}
