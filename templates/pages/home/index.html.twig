@@ -57,16 +57,16 @@
             <h2 class="passion text-secondary">Un chef etoilé avec un savoir faire exceptioinel qui met à votre disposition ses compétences ... </h2>
         </div>
             <br>
-        <div class="col-md-4">
+        <div class="col-sm-12 col-md-6 col-lg-4">
             <img src="/images/img4.jpg" alt="image accueil" class="image4">
         </div>
-        <div class="col-md-8">
+        <div class=" col-sm-12 col-md-6 col-lg-8">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-6">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis animi dolorem fugiat aliquid doloremque rerum nemo, neque non repudiandae adipisci ipsum et odit, ducimus laudantium molestias amet, eaque cumque similique?</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>onsectetur adipisicing elit. Nemo suscipit tempore ea eius incidunt nam at quos perspiciatis non eveniet, magnam, adipisci distinctio quo animi illum numquam. Voluptates consequuntur quod ipsa hic culpa expedita iusto at ratione molestiae nobis veritatis commodi non a asperiores est voluptatem, illo velit reiciendis debitis quibusdam. Voluptatum sunt molestiae debitis voluptate, enim ut neque. Nobis?</p>
                 </div> 
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-6">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>
                     <br>
                     <p>N'attendez plus pour réserver votre table...</p>
@@ -83,9 +83,9 @@
     <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon">
     <h2 class="passion text-secondary">Nos clients ont eu une préférence particulière sur les plats exceptionnels suivants ...</h2> 
          <div class="container">
-            <div class="row">
+            <div class="row d-flex">
                 {% for dish in dishes %}
-                <div class="col-sm">
+                <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="image_container">
                         <div>
                             <img class ='image' src="{{ dish.image }}" alt="photo plat">  
