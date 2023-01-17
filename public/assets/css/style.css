@@ -89,17 +89,14 @@ img.image-carte{
 }
 
 img.detail-img{
-    width: 100%;
+    width: 90%;
 }
 
 .detail-label{
     color: rgb(255, 127, 80, 0.40);
-
 }
 
-.more-detail{
-    size: 1px;
-}
+
 /* --------- REPONSIVE ------------
 
  /* Responsive for Small devices (landscape phones, 576px and up) */

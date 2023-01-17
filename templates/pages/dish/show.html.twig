@@ -18,11 +18,7 @@
   <div class="row">
     <div class="col-md-6 mt-2 mb-2">
         <div>
-          {% if dish.image %}
-            <img class="detail-img" src="{{dish.image}}">  
-          {% else %}
-            <img src="{{vich_uploader_asset(dish, 'imageFile')}}">
-          {% endif %}  
+              <img class="detail-img" src="/uploads/dish/{{dish.image}}" alt=""> 
         </div>
         <div class='text-secondary'> 
           <small> Le plat à été créé le: 

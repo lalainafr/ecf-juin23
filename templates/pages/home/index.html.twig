@@ -17,7 +17,7 @@
     <h1 class="amatic text-info">Bienvenu au restaurant   ' Q U A I _ A N T I Q U E ' </h1>
     <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
 
-{# Carrousel pour présenter le restaurant #}
+<!-- {# Carrousel pour présenter le restaurant #} -->
   <article>
   <div>
   <br>
@@ -51,7 +51,7 @@
   </article>
   <br>
 
-  {# Information sur le chef et un bouton pour réserver #}
+  <!-- {# Information sur le chef et un bouton pour réserver #} -->
   <article class="article_home p-6">  
     <div class="row">
         <div>
@@ -80,7 +80,7 @@
     </article>
    <br>
 
-   {# Liste de plats préférés par les clients #}
+   <!-- {# Liste de plats préférés par les clients #} -->
    <article >
     <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon">
     <h2 class="passion text-secondary">Nos clients ont eu une préférence particulière sur les plats exceptionnels suivants ...</h2> 
@@ -90,7 +90,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="image_container">
                         <div>
-                            <img class ='image' src="{{ dish.image }}" alt="photo plat">  
+                            <img class='image' src="/uploads/dish/{{dish.image}}" alt=""> 
                         </div>
                         <div class="middle">
                             <div class="text"> {{dish.title}} </div>

@@ -64,6 +64,7 @@ class AppFixtures extends Fixture
             $categories[] = $category;
             $manager->persist($category);
         } 
+        https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg
 
         //PLAT
         for ($i=0; $i < 12; $i++) { 
@@ -74,57 +75,58 @@ class AppFixtures extends Fixture
             $dish->setIsFavorite(mt_rand(0,1) == 1 ? true : false);
             $dish->setCategory($this->faker->randomElement($categories));
 
-            $img0 =  'https://cdn.pixabay.com/photo/2016/03/17/23/30/salad-1264107_960_720.jpg';
-            $img1 =  'https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg';
-            $img2 =  'https://cdn.pixabay.com/photo/2016/09/15/19/24/salad-1672505_960_720.jpg';
-            $img3 =  'https://cdn.pixabay.com/photo/2015/11/23/07/39/braise-pork-1057835_960_720.jpg';
-            $img4 =  'https://cdn.pixabay.com/photo/2016/02/29/00/19/cake-1227842_960_720.jpg';
-            $img5 =  'https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg';
-            $img6 =  'https://cdn.pixabay.com/photo/2014/03/07/11/00/bananas-282313_960_720.jpg';
-            $img7 =  'https://cdn.pixabay.com/photo/2020/12/17/10/18/cheesecake-5838905_960_720.jpg';
-            $img8 =  'https://cdn.pixabay.com/photo/2014/05/05/19/52/charcuterie-338498_960_720.jpg';
-            $img9 =  'https://cdn.pixabay.com/photo/2016/11/25/16/08/sushi-1858696_960_720.jpg';
-            $img10 = 'https://cdn.pixabay.com/photo/2017/12/14/19/47/cake-3019645_960_720.jpg';
-            $img11 = 'https://cdn.pixabay.com/photo/2016/10/13/11/58/chocolates-1737580_960_720.jpg';
+            // $img0 =  'https://cdn.pixabay.com/photo/2016/03/17/23/30/salad-1264107_960_720.jpg';
+            // $img1 =  'https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg';
+            // $img2 =  'https://cdn.pixabay.com/photo/2016/09/15/19/24/salad-1672505_960_720.jpg';
+            // $img3 =  'https://cdn.pixabay.com/photo/2015/11/23/07/39/braise-pork-1057835_960_720.jpg';
+            // $img4 =  'https://cdn.pixabay.com/photo/2016/02/29/00/19/cake-1227842_960_720.jpg';
+            // $img5 =  'https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg';
+            // $img6 =  'https://cdn.pixabay.com/photo/2014/03/07/11/00/bananas-282313_960_720.jpg';
+            // $img7 =  'https://cdn.pixabay.com/photo/2020/12/17/10/18/cheesecake-5838905_960_720.jpg';
+            // $img8 =  'https://cdn.pixabay.com/photo/2014/05/05/19/52/charcuterie-338498_960_720.jpg';
+            // $img9 =  'https://cdn.pixabay.com/photo/2016/11/25/16/08/sushi-1858696_960_720.jpg';
+            // $img10 = 'https://cdn.pixabay.com/photo/2017/12/14/19/47/cake-3019645_960_720.jpg';
+            // $img11 = 'https://cdn.pixabay.com/photo/2016/10/13/11/58/chocolates-1737580_960_720.jpg';
             
-            switch ($i) {
-                case '0':
-                    $dish->setImage($img0);
-                    break;
-                case '1':
-                    $dish->setImage($img1);
-                    break;
-                case '2':
-                    $dish->setImage($img2);
-                    break;
-                case '3':
-                    $dish->setImage($img3);
-                    break;
-                case '4':
-                    $dish->setImage($img4);
-                    break;
-                case '5':
-                    $dish->setImage($img5);
-                    break;
-                case '6':
-                    $dish->setImage($img6);
-                    break;
-                case '7':
-                    $dish->setImage($img7);
-                    break;
-                case '8':
-                    $dish->setImage($img8);
-                    break;
-                case '9':
-                    $dish->setImage($img9);
-                    break;
-                case '10':
-                    $dish->setImage($img10);
-                    break;
-                default:
-                    $dish->setImage($img11);
-                    break;
-            }
+            // switch ($i) {
+            //     case '0':
+            //         $dish->setImage($img0);
+            //         break;
+            //     case '1':
+            //         $dish->setImage($img1);
+            //         break;
+            //     case '2':
+            //         $dish->setImage($img2);
+            //         break;
+            //     case '3':
+            //         $dish->setImage($img3);
+            //         break;
+            //     case '4':
+            //         $dish->setImage($img4);
+            //         break;
+            //     case '5':
+            //         $dish->setImage($img5);
+            //         break;
+            //     case '6':
+            //         $dish->setImage($img6);
+            //         break;
+            //     case '7':
+            //         $dish->setImage($img7);
+            //         break;
+            //     case '8':
+            //         $dish->setImage($img8);
+            //         break;
+            //     case '9':
+            //         $dish->setImage($img9);
+            //         break;
+            //     case '10':
+            //         $dish->setImage($img10);
+            //         break;
+            //     default:
+            //         $dish->setImage($img11);
+            //         break;
+            // }
+            
             $manager->persist($dish);
         }
         $manager->flush();

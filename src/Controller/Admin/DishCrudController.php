@@ -30,7 +30,7 @@ class DishCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title', 'Nom du plat'),
-            TextEditorField::new('description', 'Description'),
+            TextField::new('description', 'Description'),
             NumberField::new('price', 'Price'),
             BooleanField::new('isFavorite', 'Plat préféré'), 
             ImageField::new('image', 'Image')
