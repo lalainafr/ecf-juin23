@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les plats dans la carte proposés par categorie{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+<h1 class="amatic text-info"> C A T E G O R I E S </h1>
+  <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
+<br>
+<br>
+<br>
+
+ {# Liste des categories #}
+   <article >
+    
+    <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
+    <h2 class="passion text-secondary">Les plats dans la carte proposés par categorie ...</h2> 
+      <hr>
+    <br>
+     <div class="align-right"> 
+         <a href="{{path('app_dish')}}"> Voir les PLATS</a>
+    </div>
+        {% for category in categories %}
+            <p class="catName">*** {{ category.name}}</p>
+            {% for dish in category.getDishes() %}  
+                <ul>
+                    <li>
+                        <a href="{{path('app_dish_show', {id: dish.getId})}}">  <span class="dishcat text-info ">{{dish}} </span> </a>
+                        <br>
+                        {{dish.description}} <br>
+                        {{dish.price}} €
+                    </li>
+                </ul>
+                {% endfor %}
+                <br>
+        {% endfor %}
+    </article>
+</div>
+{% endblock %}

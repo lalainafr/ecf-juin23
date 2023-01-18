@@ -3,10 +3,11 @@
 {% block title %}La carte{% endblock %}
 
 {% block body %}
-<div class="container mt-2">
+<div class="container mt-4">
 
- <h1 class="amatic text-info"> La carte proposé par le chef du restaurant  ' Q U A I _ A N T I Q U E ' </h1>
+ <h1 class="amatic text-info"> C A R T E  </h1>
     <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
+<br>
 <br>
 <br>
 
@@ -16,6 +17,9 @@
     <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
     <h2 class="passion text-secondary">La liste des plats proposés  ...</h2> 
     <hr>
+    <div class="align-right"> 
+         <a href="{{path('app_category')}}"> Voir les plats par CATEGORIE</a>
+    </div>
     <br>
     <div>
         {% for dish in dishes %}

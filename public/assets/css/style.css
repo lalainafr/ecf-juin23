@@ -92,8 +92,19 @@ img.detail-img{
     width: 90%;
 }
 
-.detail-label{
+span.dishcat{
+    text-decoration: none;
+    color: white;
+}
+
+.catName{
+    text-transform: uppercase;
     color: rgb(255, 127, 80, 0.40);
+    font-size: 30px;
+}
+
+.align-right{
+    text-align: end;
 }
 
 
