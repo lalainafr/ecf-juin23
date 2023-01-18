@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container mt-4">
 
- <h1 class="amatic text-info"> D E T A I L -   '{{ dish.title}}' </h1>
+ <h1 class="amatic title text-info"> '{{ dish.title}}' </h1>
 
 <br>
 
@@ -42,16 +42,16 @@
         <br>
         <div> 
         <span class="text-info"text-info">Le plat appartient à la catégorie:<br> </span>
-        <a href="{{path('app_category')}}">{{dish.category}}</a>
+        {{dish.category}}
         </div>
         <br>
       </div>
     </div>
     </article>
   <br>
-    <a href="{{path('app_dish')}}">Voir la CARTE</a>
+  Retour à la <a href="{{path('app_dish')}}">Carte</a>
   <br> 
   <br> 
-    <a href="{{path('app_category')}}">Voir les plats par CATEGORIE</a>
+  Retour à la <a href="{{path('app_home')}}">Page d'accueil</a>
 </div>
 {% endblock %}

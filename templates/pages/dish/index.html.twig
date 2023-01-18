@@ -1,55 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}La carte{% endblock %}
+{% block title %}Les plats dans la carte proposés par categorie{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
 
- <h1 class="amatic text-info"> C A R T E  </h1>
-    <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
+<h1 class="amatic title text-info"> P L A T S </h1>
+  <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
 <br>
 <br>
 <br>
 
- {# Liste des plats #}
+ {# Liste des plats par categories #}
    <article >
     
     <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
-    <h2 class="passion text-secondary">La liste des plats proposés  ...</h2> 
-    <hr>
-    <div class="align-right"> 
-         <a href="{{path('app_category')}}"> Voir les plats par CATEGORIE</a>
+    <h2 class="passion text-secondary">Les plats dans la carte proposés par categorie ...</h2> 
+      <hr>
+     <div class="align-right">
+        <br>
+        Retour à la <a href="{{path('app_home')}}"> page d'accueil</a>
     </div>
-    <br>
-    <div>
-        {% for dish in dishes %}
-            <div class="container">
-                <div class="row d-flex carte-row mb-4">
-                    <h3 class="amatic text-info">
-                        <a href="{{path('app_dish_show', {id: dish.getId})}}">{{dish.title}}</a>
-                    </h3> 
-                    <i class="fa-thin fa-arrow-up"></i>
-                    <small class="more-detail text-secondary "> Cliquer pour voir le détail</small>
-                    <div class="col-sm-6">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% for category in categories %}
+                <p class="catName">*** {{ category.name}}</p>
+                {% for dish in category.getDishes() %}  
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{path('app_dish_show', {id: dish.getId})}}">  <span class="dishcat amatic">{{dish.title}} </span> </a>
+                        <br>
+                        <br>
+                        {{dish.description}} <br>
+                        {{dish.price}} €
+                    </div>
+                    <div class="col-md-6">
                         <div>
                             <img class='image-carte' src="/uploads/dish/{{dish.image}}" alt="">  
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div>
-                            <small> crée le:  {{dish.createdAt|date("d/m/Y")}}</small>
-                        </div>
-                        <br>
-                        <div>
-                            <p>{{dish.description}}</p>
-                        </div>
-                        <div>
-                            <b>{{dish.price}} €</b>
-                        </div>
-                    </div>
                 </div>
-            </div>    
-        {% endfor %}    
+                <br>
+                {% endfor %}
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     </article>
 </div>
 {% endblock %}

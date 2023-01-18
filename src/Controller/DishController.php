@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Dish;
 use App\Repository\DishRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,11 +13,11 @@ class DishController extends AbstractController
 {
 
     #[Route('/carte', name: 'app_dish')]
-    public function index(DishRepository $dishRepository): Response
+    public function index(CategoryRepository $categoryRepository): Response
     {
-        $dishes = $dishRepository->findAll();
+        $category = $categoryRepository->findAll();
         return $this->render('pages/dish/index.html.twig', [
-            'dishes' => $dishes,
+            'categories' => $category,
         ]);
     }
     

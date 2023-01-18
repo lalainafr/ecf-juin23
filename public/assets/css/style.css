@@ -14,6 +14,10 @@
     font-family: 'Amatic SC', cursive;
 }
 
+.amatic.title{
+    font-size: 80px;
+}
+
 .img-flaticon{
     width: 40px;
 }
@@ -94,7 +98,10 @@ img.detail-img{
 
 span.dishcat{
     text-decoration: none;
-    color: white;
+    color:#407d9e;
+    font-size: 35px;
+
+
 }
 
 .catName{
@@ -106,7 +113,6 @@ span.dishcat{
 .align-right{
     text-align: end;
 }
-
 
 /* --------- REPONSIVE ------------
 
@@ -134,8 +140,8 @@ span.dishcat{
     } 
     img.image-carte{
         display: inline;
-        width: 200px;
-        height:180px
+        width: 250px;
+        height:220px
     }
     
 }  
