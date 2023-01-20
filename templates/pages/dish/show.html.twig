@@ -37,7 +37,7 @@
         <br>
         <div> 
         <span class="text-info"">Le plat est proposé au prix de: <br></span>
-          {{dish.price}} €
+          {{dish.price | number_format(2, '.', ',') }} €
         </div>
         <br>
         <div> 

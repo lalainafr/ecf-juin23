@@ -100,15 +100,14 @@ span.dishcat{
     text-decoration: none;
     color:#407d9e;
     font-size: 35px;
-
-
 }
 
-.catName{
-    text-transform: uppercase;
-    color: rgb(255, 127, 80, 0.40);
-    font-size: 30px;
+.plat-logo{
+    font-size: 60px;
+    font-family: 'Unica One', cursive;
+    text-decoration: underline;
 }
+
 
 .align-right{
     text-align: end;
