@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\DishRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
@@ -46,9 +48,13 @@ class Dish
     #[ORM\ManyToOne(inversedBy: 'dishes')]
     private ?Category $Category = null;
 
+    #[ORM\ManyToMany(targetEntity: Formula::class, mappedBy: 'dish')]
+    private Collection $formulas;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->formulas = new ArrayCollection();
     }
 
     public function __toString()
@@ -164,6 +170,33 @@ class Dish
     public function setCategory(?Category $Category): self
     {
         $this->Category = $Category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Formula>
+     */
+    public function getFormulas(): Collection
+    {
+        return $this->formulas;
+    }
+
+    public function addFormula(Formula $formula): self
+    {
+        if (!$this->formulas->contains($formula)) {
+            $this->formulas->add($formula);
+            $formula->addDish($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormula(Formula $formula): self
+    {
+        if ($this->formulas->removeElement($formula)) {
+            $formula->removeDish($this);
+        }
 
         return $this;
     }

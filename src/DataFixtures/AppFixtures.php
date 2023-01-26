@@ -4,8 +4,10 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Dish;
+use App\Entity\Menu;
 use App\Entity\User;
 use Faker\Generator;
+use App\Entity\Formula;
 use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -74,13 +76,43 @@ class AppFixtures extends Fixture
                 ->setPrice($this->faker->numberBetween(1, 50))
                 ->setIsFavorite(mt_rand(0,1) == 1 ? true : false)
                 ->setCategory($this->faker->randomElement($categories));
-
-            $img = ['bananas.jpg','braise-pork.jpg','burger.jpeg','burger1.jpeg','burger2.jpeg','cake.jpg','cake1.jpg','charcuterie.jpg','pancakes.jpg','chocolates.jpg','salade.jpeg','salade1.jpeg','salade2.jpg','fish.jpeg'];
-
-            $dish->setImage($img[$i]);
+                
+                $img = ['bananas.jpg','braise-pork.jpg','burger.jpeg','burger1.jpeg','burger2.jpeg','cake.jpg','cake1.jpg','charcuterie.jpg','pancakes.jpg','chocolates.jpg','salade.jpeg','salade1.jpeg','salade2.jpg','fish.jpeg'];
+                
+                $dish->setImage($img[$i]);
+                
+                $dishes[] = $dish;
+                
+                $manager->persist($dish);
+            }
             
-            $manager->persist($dish);
-        }
+            // FORMULE
+            for ($i=0; $i < 4; $i++) { 
+                $formula = new Formula();
+                $formula->setName('formula - ' . strtoupper($this->faker->text(10)))
+                        ->setPrice($this->faker->numberBetween(10, 30))
+                        ->setDescription($this->faker->sentence(4));
+    
+                for ($j=0; $j < mt_rand(2, 3); $j++) { 
+                    $formula->addDish($dishes[mt_rand(1, count($dishes)-1)]);
+                }
+
+                $formulas[] = $formula;
+
+                $manager->persist($formula);
+            }
+
+            // MENU
+            for ($i=0; $i < 3; $i++) { 
+                $menu = new Menu();
+                $menu->setTitle('menu - ' . strtoupper($this->faker->text(6)));
+                for ($j=0; $j < mt_rand(2, 4); $j++) { 
+                    $menu->addFormula($formulas[mt_rand(1, count($formulas) -1 )]);
+                }
+
+                $manager->persist($menu);
+            }
+
         $manager->flush();
     }
     

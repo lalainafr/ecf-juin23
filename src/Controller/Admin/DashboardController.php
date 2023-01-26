@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Dish;
 use App\Entity\User;
 use App\Entity\Category;
+use App\Entity\Formula;
+use App\Entity\Menu;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -41,6 +43,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Categories', 'fa fa-toggle-on')->setSubItems([
             MenuItem::linkToCrud('Créer une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher des catégories', 'fas fa-eye', Category::class),
+        ]);
+        yield MenuItem::subMenu('Menu', 'fa fa-toggle-on')->setSubItems([
+            MenuItem::linkToCrud('Créer un Menu', 'fas fa-plus', Menu::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Afficher des Menus', 'fas fa-eye', Menu::class),
+        ]);
+        yield MenuItem::subMenu('Formules', 'fa fa-toggle-on')->setSubItems([
+            MenuItem::linkToCrud('Créer une formules', 'fas fa-plus', Formula::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Afficher des formules', 'fas fa-eye', Formula::class),
         ]);
 
 

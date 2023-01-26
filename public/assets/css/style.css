@@ -19,7 +19,13 @@
 }
 
 .img-flaticon{
+
     width: 40px;
+}
+
+.logo-menu{
+    width: 30px;
+    height: 30px;
 }
 
 
@@ -105,12 +111,32 @@ span.dishcat{
 .plat-logo{
     font-size: 60px;
     font-family: 'Unica One', cursive;
-    text-decoration: underline;
+    margin-top: 20px;
 }
 
 
 .align-right{
     text-align: end;
+}
+
+li .menu-img{
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
+}
+
+.fleche{
+    width: 20px;
+}
+
+div .bg-formula{
+    padding: 15px;
+    background-color: rgba(64, 125, 158, 0.04);
+}
+
+div .bg-plat{
+    padding: 15px;
+    background-color: rgba(64, 125, 158, 0.04);
 }
 
 /* --------- REPONSIVE ------------
