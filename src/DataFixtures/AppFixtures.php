@@ -115,11 +115,22 @@ class AppFixtures extends Fixture
 
 
         // HORAIRE D'OUVERTURE
-        $day = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-        for ($i=0; $i < 7; $i++) { 
+        $day = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+        
+        // Horaire pour lundi 
+        $open = new Open();
+        $open->setDay($day[0])
+            ->setAmStart('Fermé')
+            ->setAmClose('.')
+            ->setPmStart('Fermé')
+            ->setPmClose('.');
+        $manager->persist($open);
+
+        // horaire pour mardi à dimanche
+        for ($i = 1; $i < 7; $i++) {
             $open = new Open();
-            $open->setDay($day[$i])    
-                ->setAmStart('12h')       
+            $open->setDay($day[$i])
+                ->setAmStart('12h')
                 ->setAmClose('14h')
                 ->setPmStart('19h')
                 ->setPmClose('22h');
@@ -127,5 +138,5 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
-    }    
+    }
 }
