@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Formula;
 use App\Entity\Menu;
+use App\Entity\Open;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -40,17 +41,20 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Créer un Plat', 'fas fa-plus', Dish::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les Plats', 'fas fa-eye', Dish::class),
         ]);
-        yield MenuItem::subMenu('Categories', 'fa fa-toggle-on')->setSubItems([
-            MenuItem::linkToCrud('Créer une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Afficher des catégories', 'fas fa-eye', Category::class),
-        ]);
-        yield MenuItem::subMenu('Menu', 'fa fa-toggle-on')->setSubItems([
+        yield MenuItem::subMenu('Menu', 'fas fa-hamburger')->setSubItems([
             MenuItem::linkToCrud('Créer un Menu', 'fas fa-plus', Menu::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher des Menus', 'fas fa-eye', Menu::class),
+        ]);
+        yield MenuItem::subMenu('Categories', 'fas fa-list')->setSubItems([
+            MenuItem::linkToCrud('Créer une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Afficher des catégories', 'fas fa-eye', Category::class),
         ]);
         yield MenuItem::subMenu('Formules', 'fa fa-toggle-on')->setSubItems([
             MenuItem::linkToCrud('Créer une formules', 'fas fa-plus', Formula::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher des formules', 'fas fa-eye', Formula::class),
+        ]);
+        yield MenuItem::subMenu('Horaire d\'ouverture', 'fa-regular fa-clock')->setSubItems([
+            MenuItem::linkToCrud('Horaire d\'ouverture', 'fas fa-eye', Open::class),
         ]);
 
 

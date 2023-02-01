@@ -1,0 +1,64 @@
+<div class="container mt-5 my-5">
+
+	<footer>
+		<div class=" text-center text-info p-5" style="background-color: rgba(0, 0, 0, 0.7)">
+			<article class="row">
+				<!-- Horaire d'ouverture -->
+				<section class="col-md-4">
+					<h5>HORAIRE D'OUVERTURE</h5>
+					<table class="table text-muted text-center">
+						{% for opening in openTime.getOpenTimes %}
+						<tbody>
+							<tr>
+								<th width="200" scope="col">{{opening.getDay}}</th>
+								<td>{{opening.getAmStart}}</td>
+								<td>-</td>
+								<td>{{opening.getAmClose}}</td>
+								<td></td>
+								<td>{{opening.getPmStart}}</td>
+								<td>-</td>
+								<td>{{opening.getPmClose}}</td>
+							</tr>
+						</tbody>
+						{% endfor %}
+					</table>
+				</section>
+
+				<!-- Navigation -->
+				<section class="col-md-4">
+					<h5>NAVIGATION</h5>
+					<br>
+					<div class="text-muted">
+						<a class="nav-link " href="/">Page d'accueil</a>
+						<a class="nav-link " href="{{path('app_dish')}}">Carte</a>
+						<a class="nav-link " href="{{path('app_menu')}}">Menu</a>
+						<a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
+						{% if not app.user %}
+						<a class="nav-link" href="{{path('app_login')}}">Se connecter</a>
+						{% endif %}
+					</div>
+				</section>
+
+				<!-- Contact  -->
+				<section class="col-md-3 text-end">
+					<h5>CONTACT:</h5>
+					<br>
+					<div class="text-muted">
+						<p>5 rue des Saumeliers</p>
+						<p>75841 Coscigny</p>
+						<p>France</p>
+						<br>
+						<p> 01 11 12 45 35</p>
+						<p>mymailaddress@mail.mail</p>
+					</div>
+				</section>
+			</article>
+
+			<!-- Section Copyright -->
+			<section class="text-center mt-3">
+				© 2023 Copyright:</a>
+			</section>
+		</div>
+
+	</footer>
+</div>

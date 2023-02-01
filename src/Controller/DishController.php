@@ -20,7 +20,7 @@ class DishController extends AbstractController
             'categories' => $category,
         ]);
     }
-    
+
     #[Route('/carte/{id}', name: 'app_dish_show')]
     public function show(int $id, DishRepository $dishRepository): Response
     {

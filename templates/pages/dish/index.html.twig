@@ -1,56 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les plats dans la carte proposés par categorie{% endblock %}
+{% block title %}Les plats dans la carte proposés par categorie
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+	<div class="container mt-4">
 
-<h1 class="amatic title text-info"> P L A T S </h1>
-  <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
-<br>
-<br>
-<br>
+		<h1 class="amatic title text-info">
+			P L A T S
+		</h1>
+		<small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
+		<br>
+		<br>
+		<br>
 
- {# Liste des plats par categories #}
-   <article >
-    
-    <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
-    <h5 class="passion text-muted">Les plats dans la carte proposés par categorie ...</h5> 
+		<img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
+		<h5 class="passion text-muted">Les plats dans la carte proposés par categorie ...</h5>
 
-     <div class="align-right">
-        <img class="fleche" src="/images/flaticon/fleche.png" alt="fleche"> <br>
-        Retour à la <a href="{{path('app_home')}}"> page d'accueil</a> <br>
-        Voir le <a href="{{path('app_menu')}}"> menu</a>
-        <br>
-        <br>
-        <p><small class="text-muted"> * Cliquer sur le nom du plat pour voir les détails</small></p>
-    </div>
+		<!-- Section redirection vers les autres pages-->
+		<section class="align-right">
+			<img class="fleche" src="/images/flaticon/fleche.png" alt="fleche">
+			<br>
+			Retour à la
+			<a href="{{path('app_home')}}">
+				page d'accueil</a>
+			<br>
+			Voir le
+			<a href="{{path('app_menu')}}">
+				menu</a>
+			<br>
+			<br>
+			<p>
+				<small class="text-muted">
+					* Cliquer sur le nom du plat pour voir les détails</small>
+			</p>
+		</section>
 
-
-    <div class="container">
-                {% for category in categories %}
-                <p class="plat-logo text-secondary "> {{ category.name}} ...</p>
-        <div class="bg-plat row text-center">
-                {% for dish in category.getDishes() %}  
-                    <div class="col-md-6">
-                        <a href="{{path('app_dish_show', {id: dish.getId})}}">  <span class="dishcat amatic">{{dish.title}} </span> </a>
-                        <br>
-                        <br>
-                        {{dish.description}} <br>
-                        {{dish.price | number_format(2, '.', ',')}} €
-                    </div>
-                    <div class="col-md-6">
-                        <div>
-                            <img class='image-carte' src="/uploads/dish/{{dish.image}}" alt="image">  
-                        </div>
-                            <br>
-                    </div>
-                <br>
-                {% endfor %}
-                <br>
-        </div>
-                {% endfor %}
-    </div>
-    </article>
-</div>
+		<!-- Section liste des plats par catégorie -->
+		<section>
+			<div class="container">
+				{% for category in categories %}
+					<p class="plat-logo text-secondary ">
+						{{ category.name}}
+						...</p>
+					<div class="bg-plat row text-center">
+						{% for dish in category.getDishes() %}
+							<div class="col-md-6">
+								<a href="{{path('app_dish_show', {id: dish.getId})}}">
+									<span class="dishcat amatic">{{dish.title}}
+									</span>
+								</a>
+								<br>
+								<br>
+								<span class="text-muted">{{dish.description}}</span>
+								<br>
+								{{dish.price | number_format(2, '.', ',')}}
+								€
+							</div>
+							<div class="col-md-6">
+								<div>
+									<img class='image-carte' src="/uploads/dish/{{dish.image}}" alt="image">
+								</div>
+								<br>
+							</div>
+							<br>
+						{% endfor %}
+						<br>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	</div>
 {% endblock %}

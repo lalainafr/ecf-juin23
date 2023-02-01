@@ -1,60 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail d'une carte{% endblock %}
+{% block title %}Détail d'une carte
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+	<div class="container mt-4">
 
- <h1 class="amatic title text-info"> '{{ dish.title}}' </h1>
+		<h1 class="amatic title text-info">
+			'{{ dish.title}}'
+		</h1>
 
-<br>
+		<br>
 
- {# Liste des plats #}
-   <article >
-    <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
-    <br>
+		<img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
+		<br>
 
-  <div class="row">
-    <div class="col-md-6 mt-2 mb-2">
-        <div>
-              <img class="detail-img" src="/uploads/dish/{{dish.image}}" alt=""> 
-        </div>
-        <div class='text-secondary'> 
-          <small> Le plat à été créé le: 
-            {{dish.createdAt| date('d/m/Y')}} </small>
-        </div>  
-    </div>
-      <div class="col-md-6 mt-2">  
-        <div> 
-        <span class="text-info">Ce plat a comme dénomination: <br> </span>
-          '{{dish.title}}'
-        </div>
-        <br>
-        <div> 
-          <span class="text-info"">Description du plat: <br></span>
-          {{dish.description}}
-        </div>
-        <br>
-        <div> 
-        <span class="text-info"">Le plat est proposé au prix de: <br></span>
-          {{dish.price | number_format(2, '.', ',') }} €
-        </div>
-        <br>
-        <div> 
-          <span class="text-info"text-info">Le plat appartient à la catégorie:<br> </span>
-          {{dish.category}}
-        </div>
-        <br>
-      </div>
-    </div>
-    </article>
-  <br>
-  
-  <img class="fleche" src="/images/flaticon/fleche.png" alt="fleche"> <br>
-  Retour à la <a href="{{path('app_dish')}}">Carte</a>
-  <br> 
-  Voir le <a href="{{path('app_menu')}}">menu</a>
-  <br> 
-  Retour à la <a href="{{path('app_home')}}">Page d'accueil</a>
-</div>
+		<!-- Section redirection -->
+		<section class="align-right">
+			<img class="fleche" src="/images/flaticon/fleche.png" alt="fleche">
+			<br>
+			Retour à la
+			<a href="{{path('app_dish')}}">Carte</a>
+			<br>
+			Voir le
+			<a href="{{path('app_menu')}}">menu</a>
+			<br>
+			Retour à la
+			<a href="{{path('app_home')}}">Page d'accueil</a>
+			<br>
+			<br>
+		</section>
+
+		<!-- Section détail du plat -->
+		<section>
+			<div class="row">
+				<div class="col-md-6 mt-2 mb-2">
+					<div>
+						<img class="detail-img" src="/uploads/dish/{{dish.image}}" alt="">
+					</div>
+					<div class='text-secondary'>
+						<small>
+							Le plat à été créé le:
+							{{dish.createdAt| date('d/m/Y')}}
+						</small>
+					</div>
+				</div>
+				<div class="col-md-6 mt-2">
+					<div>
+						<span class="text-info">Ce plat a comme dénomination:
+							<br>
+						</span>
+						'{{dish.title}}'
+					</div>
+					<br>
+					<div>
+						<span class="text-info" ">Description du plat:
+							<br></span>
+						{{dish.description}}
+					</div>
+					<br>
+					<div>
+						<span class="text-info" ">Le plat est proposé au prix de:
+							<br></span>
+						{{dish.price | number_format(2, '.', ',') }}
+						€
+					</div>
+					<br>
+					<div>
+						<span class="text-info">Le plat appartient à la catégorie:<br>
+						</span>
+						{{dish.category}}
+					</div>
+					<br>
+				</div>
+			</div>
+		</section>
+		<br>
+	</div>
 {% endblock %}

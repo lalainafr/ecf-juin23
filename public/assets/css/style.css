@@ -139,6 +139,11 @@ div .bg-plat{
     background-color: rgba(64, 125, 158, 0.04);
 }
 
+footer .footer {
+    font-size: 50px;
+}
+
+
 /* --------- REPONSIVE ------------
 
  /* Responsive for Small devices (landscape phones, 576px and up) */

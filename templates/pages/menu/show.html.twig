@@ -1,71 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail du menu{% endblock %}
+{% block title %}Détail du menu
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+	<div class="container mt-4">
 
-<h1 class="amatic title text-info"> M E N U S </h1>
-  <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
-<br>
-<br>
-<br>
+		<h1 class="amatic title text-info">
+			M E N U S
+		</h1>
+		<small>Lorem ipsum dolor sit amet consectetur adipisicing elit. A perferendis doloremque aperiam nobis eligendi numquam ipsam consectetur et veritatis natus minus, quibusdam, in accusamus assumenda, suscipit atque adipisci. Ea, dignissimos!</small>
+		<br>
+		<br>
+		<br>
 
- {# Liste des plats par categories #}
-   <article >
-    
-    <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
-    <h5 class="passion text-muted">Les menus proposés à partir de differents formules  ...</h5> 
+		<img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon ">
+		<h5 class="passion text-muted">Les menus proposés à partir de differents formules  ...</h5>
 
-<div class="align-right">
-  <img class="fleche" src="/images/flaticon/fleche.png" alt="fleche"> <br>
-  Retour à la <a href="{{path('app_dish')}}">Carte</a>
-  <br> 
-  Retour à la <a href="{{path('app_home')}}">Page d'accueil</a>
-</div>
+		<!-- Section redirection vers les autres pages-->
+		<section>
+			<div class="align-right">
+				<img class="fleche" src="/images/flaticon/fleche.png" alt="fleche">
+				<br>
+				Retour à la
+				<a href="{{path('app_dish')}}">Carte</a>
+				<br>
+				Retour à la
+				<a href="{{path('app_home')}}">Page d'accueil</a>
+			</div>
+		</section>
 
-{% for menu in menus %}
- <h1 class=" plat-logo text-secondary"> ... '{{ menu.title}}' </h1> 
+		{% for menu in menus %}
+			<h1 class=" plat-logo text-secondary">
+				... '{{ menu.title}}'
+			</h1>
 
- {# Liste des menus #}
-    
-    <br>
-   <article >
-    {% for formula in menu.formula %}
-       
-      <div class=" bg-formula row mb-4">
-        <div class="col-sm-6">
-          <div class="d-flex">
-            <img src="/images/flaticon/coutellerie.png" alt="img-menu" class="logo-menu"> &nbsp
-            <h3 class="text-muted amatic"> {{formula.name}}</h3>    
-          </div> 
-        </div>
-        <div class="col-sm-6 text-end">
-            <p class="passion">{{formula.description}}</p>
-          <p>{{formula.price | number_format(2, '.', ',')}} €</p>
-        </div>
-      </div>
-       {% for dish in formula.dish %}
-         <ul>
-            <li>
-              <div class="row">
-                <div class="col-sm-6">
-                 <div class="text-info"> {{dish.title}} </div>
-                  <small> {{dish.description}}  </small>
-                </div>
-                <div class="col-sm-6 text-center">
-                  <img class="menu-img" src="/uploads/dish/{{dish.image}}" alt="image menu"> 
-                </div>
-              </div> 
-            </li>
-         </ul>
-        <br>
-       {% endfor %}
-    {% endfor %}
-       <hr>
+			<br>
+      <!-- Section liste des menus-->
+			<section>
+				{% for formula in menu.formula %}
 
-{% endfor %}
-    </article>
- 
-</div>
+					<div class=" bg-formula row mb-4">
+						<div class="col-sm-6">
+							<div class="d-flex">
+								<img src="/images/flaticon/coutellerie.png" alt="img-menu" class="logo-menu">
+								&nbsp
+								<h3 class="text-muted amatic">
+									{{formula.name}}</h3>
+							</div>
+						</div>
+						<div class="col-sm-6 text-end">
+							<p class="passion">{{formula.description}}</p>
+							<p>{{formula.price | number_format(2, '.', ',')}}
+								€</p>
+						</div>
+					</div>
+					{% for dish in formula.dish %}
+						<ul>
+							<li>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="text-info">
+											{{dish.title}}
+										</div>
+										<small>
+											{{dish.description}}
+										</small>
+									</div>
+									<div class="col-sm-6 text-center">
+										<img class="menu-img" src="/uploads/dish/{{dish.image}}" alt="image menu">
+									</div>
+								</div>
+							</li>
+						</ul>
+						<br>
+					{% endfor %}
+				{% endfor %}
+				<hr>
+			{% endfor %}
+		</section>
+	</div>
 {% endblock %}

@@ -12,20 +12,20 @@ class LoginController extends AbstractController
     #[Route('/connexion', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
-            // get the login error if there is one
-            $error = $authenticationUtils->getLastAuthenticationError();
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
 
-            // last username entered by the user   
-            $lastUsername = $authenticationUtils->getLastUsername();
+        // last username entered by the user   
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-            $this->addFlash(
-                'success',
-                'Vous êtes bien connecté',
-            );
-        
+        $this->addFlash(
+            'success',
+            'Vous êtes bien connecté',
+        );
+
         return $this->render('pages/login/index.html.twig', [
             'last_username' => $lastUsername,
-            'error' => $error, 
+            'error' => $error,
         ]);
     }
 
