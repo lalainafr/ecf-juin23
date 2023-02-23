@@ -2,6 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Availability;
+use DatePeriod;
+use DateInterval;
 use Faker\Factory;
 use App\Entity\Dish;
 use App\Entity\Menu;
@@ -10,6 +13,7 @@ use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Formula;
 use App\Entity\Category;
+use App\Entity\GuestMax;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\File\File;
@@ -136,6 +140,21 @@ class AppFixtures extends Fixture
                 ->setPmClose('22h');
             $manager->persist($open);
         }
+
+        
+        // GUESTMAX per DATE
+        $start_date = date_create('2023-01-01');
+        $end_date = date_create('2024-01-01') ; 
+        // L'admin définit le nombre max de convives pour chaque jour jusqu'à la fin de l'année
+        
+        $interval = DateInterval::createFromDateString('1 day');
+        $daterange = new DatePeriod($start_date, $interval ,$end_date);
+            foreach($daterange as $date1){
+                $availablity = new Availability();
+                $availablity->setDate($date1);
+                $availablity->setGuestMax($this->faker->numberBetween(20,25));
+                $manager->persist($availablity);
+            }
 
         $manager->flush();
     }
