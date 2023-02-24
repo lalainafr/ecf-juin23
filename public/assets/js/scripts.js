@@ -19,6 +19,8 @@ reservationDate.addEventListener('change', function(){
     // Récupérer ensuite son id
     for (let i = 0; i < length - 1; i++) {
         if(availabilityDateArray[i].includes(`${choosenDate}`)){
+            // Dans la liste des availability, mettre selected="selected" sur la date choisie
+            liste.options[i].selected = true
             var id = i + 1
         }
     } 
@@ -38,6 +40,8 @@ reservationDate.addEventListener('change', function(){
 
            donnees.forEach(element => {
                 document.getElementById('nbMax').textContent =  element.guestMax
+
+
             })
 
         }

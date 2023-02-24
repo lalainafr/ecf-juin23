@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des reservation
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+
+        {# Message flash
+		{% if error %}
+			<div class="alert alert-danger">
+				<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			</div>
+		{% endif %} #}
+
+		<h1 class="text-center amatic">R E S E R V A T I O N </h1>
+		<br><br>
+
+
+  		<!-- Formulaire de Reservation -->
+		<section>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Date de reservation</th>
+							<th scope="col">Limite place</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for reservation in reservations %}
+						<tr>
+							<td>{{reservation.reservationDate| date('d/m/Y')}}</td>
+							<td>{{reservation.getAvailability.guestMax}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				
+
+		</section>
+		<br><br>
+	</div>
+{% endblock %}
+
+
+
+    

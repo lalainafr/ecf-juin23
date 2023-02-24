@@ -21,11 +21,17 @@
   		<!-- Formulaire de Reservation -->
 		<section class="row justify-content-center">
 			<div class="col-md-4">
+
+				{{ form_start(form) }}
 				{{ form_row(form.reservationDate) }}
 				{{ form_row(form.availability)}}
-				<p>Nombre de place disponibles:</p>
-        		<p id="nbMax"></p>
-				</p>
+				<p> <span id="nbMax"></span>  - places disponibles:</p>
+				<p> <span id="date"></span>  - date</p>
+        		
+				{{ form_row(form.submit)}}
+				{{ form_end(form) }}
+
+
 			</div>
 		</section>
 		<br><br>
