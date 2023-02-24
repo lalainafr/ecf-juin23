@@ -28,7 +28,7 @@ class Availability
 
 public function __toString()
 {
-    return $this->getDate()->format('d M Y - l');
+    return $this->getDate()->format('Y-m-d');
 }
 
     public function __construct()
