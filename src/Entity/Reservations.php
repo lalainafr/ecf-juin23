@@ -20,6 +20,9 @@ class Reservations
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $reservationDate = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slot = null;
+
 
     public function getId(): ?int
     {
@@ -46,6 +49,18 @@ class Reservations
     public function setReservationDate(\DateTimeInterface $reservationDate): self
     {
         $this->reservationDate = $reservationDate;
+
+        return $this;
+    }
+
+    public function getSlot(): ?string
+    {
+        return $this->slot;
+    }
+
+    public function setSlot(string $slot): self
+    {
+        $this->slot = $slot;
 
         return $this;
     }
