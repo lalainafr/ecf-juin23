@@ -23,6 +23,12 @@ class Reservations
     #[ORM\Column(length: 255)]
     private ?string $slot = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?User $user = null;
+
+    #[ORM\Column]
+    private ?int $nbPerson = null;
+
 
     public function getId(): ?int
     {
@@ -61,6 +67,30 @@ class Reservations
     public function setSlot(string $slot): self
     {
         $this->slot = $slot;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getNbPerson(): ?int
+    {
+        return $this->nbPerson;
+    }
+
+    public function setNbPerson(int $nbPerson): self
+    {
+        $this->nbPerson = $nbPerson;
 
         return $this;
     }

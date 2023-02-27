@@ -1,32 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Liste des reservation
+	Liste des reservations d'un utilisateur
 {% endblock %}
 
 {% block body %}
 	<div class="container my-5">
 
-        {# Message flash
-		{% if error %}
-			<div class="alert alert-danger">
-				<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-			</div>
-		{% endif %} #}
-
-		<h1 class="text-center amatic">L I S T E  _  R E S E R V A T I O N S </h1>
+		<h1 class="text-center amatic">Liste des RESERVATIONS </h1>
 		<br><br>
 
 
-  		<!-- Formulaire de Reservation -->
 		<section>
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Date de reservation</th>
-							<th scope="col">Limite place</th>
+							<th scope="col">Créneaux</th>
 							<th scope="col">Nombre de personne(s)</th>
-							<th scope="col">Utilisateur</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,7 +26,6 @@
 							<td>{{reservation.reservationDate| date('d/m/Y')}}</td>
 							<td>{{reservation.slot}}</td>
 							<td>{{reservation.nbPerson}}</td>
-							<td>{{reservation.getUser()}}</td>
 						</tr>
 						{% endfor %}
 					</tbody>
