@@ -11,23 +11,23 @@ reservationDate.addEventListener('change', function(){
     
     // Construire le tableau contenant la liste des dates
     let availabilityDateArray = []
-    for (let i = 0; i < length - 1 ; i++) {
+    for (let i = 0; i < length  ; i++) {
         availabilityDateArray[i] = (liste.options[i].innerText)
     }
 
     // Verifier si la date choisie est dans le tableau
     // Récupérer ensuite son id
-    for (let i = 0; i < length - 1; i++) {
+    for (let i = 0; i < length ; i++) {
         if(availabilityDateArray[i].includes(`${choosenDate}`)){
             // Dans la liste des availability, mettre selected="selected" sur la date choisie
             liste.options[i].selected = true
-            var id = i + 1
+            var id = i
         }
     } 
     
     // Récuperer en AJAX le nombre de guestMax pour la date selectionnée
-    
     const url = "http://127.0.0.1:8000/availability/" + id; 
+
     async function launchAjax(){    
         const requete = await fetch(url, {
             method:'GET'
@@ -40,13 +40,10 @@ reservationDate.addEventListener('change', function(){
 
            donnees.forEach(element => {
                 document.getElementById('nbMax').textContent =  element.guestMax
-
-
             })
-
         }
     }    
-    
     launchAjax()
+  
 })
 

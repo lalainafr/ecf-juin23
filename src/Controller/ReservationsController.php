@@ -22,6 +22,10 @@ class ReservationsController extends AbstractController
         $form->handleRequest($resquest);
         if($form->isSubmitted() && $form->isValid()){
             $reservation = $form->getData();
+            // Récuperer la valeur de guestMax
+            $currentValue = $reservation->getAvailability()->getGuestMax();
+            // Décrementer le nombre après la soumission d'une reservation
+            $reservation->getAvailability()->setGuestMax($currentValue - 1);
             $em->persist($reservation);
             $em->flush();
             return $this->redirectToRoute('app_reservations');

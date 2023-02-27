@@ -22,11 +22,11 @@ class ReservationsType extends AbstractType
         ])
         ->add('availability', EntityType::class, [
             'class' => Availability::class,
-            'placeholder' => 'Date selectionnée'
-            // 'label' => false,
-            // 'attr' => [
-            //     'style' => 'display:none'
-            // ]
+            'placeholder' => 'Date selectionnée',
+            'label' => false,
+            'attr' => [
+                'style' => 'display:none'
+            ]
         ])
         ->add('submit', SubmitType::class, [
             'attr' => [
