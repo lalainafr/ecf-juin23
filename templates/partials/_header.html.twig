@@ -24,7 +24,7 @@
 							<a class="nav-link " href="{{path('app_menu')}}">MENU</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link " href="{{path('app_reservations')}}">RESERVATION</a>
+							<a class="nav-link " href="{{path('app_reservations_new')}}">RESERVATION</a>
 						</li>
 						{% if not app.user %}
 						<li class="nav-item">
@@ -41,7 +41,7 @@
 							<ul class="dropdown-menu">
 								{% if "ROLE_ADMIN" in (app.user.roles) %}
 								<li>
-									<a class="dropdown-item" href="{{ path('admin')}}">Administration</a>
+									<a class="dropdown-item" href="{{ path('admin')}}">Adminindexistration</a>
 								</li>
 								{% endif %}
 								<li>

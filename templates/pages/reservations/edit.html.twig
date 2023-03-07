@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Modifier reservation
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+
+		{% for flashMessage in app.flashes('error') %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<p>{{ flashMessage }}</p>
+			</div>
+		{% endfor %}
+		{% for flashMessage in app.flashes('success') %}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<p>{{ flashMessage }}</p>
+			</div>
+		{% endfor %}
+
+		<h1 class="text-center amatic">M O D I F I E R  _  R E S E R V A T I O N S </h1>
+		<br><br>
+
+	<!-- Formulaire de Reservation -->
+	<section class="row justify-content-center">
+		<div class="col-md-4">
+			{{ form_start(form) }}
+			{{ form_row(form.reservationDate) }}
+			{{ form_row(form.availability)}}
+			<p>Places disponibles:
+				<span id="nbMax"></span>
+			</p>
+			<p>
+				<span id="date"></p>
+				{{ form_row(form.slot)}}
+				{{ form_row(form.nbPerson)}}
+				{{ form_row(form.submit)}}{{ form_end(form) }}
+			</p>
+		</div>
+	</section>
+	<br><br>
+</div>{% endblock %}

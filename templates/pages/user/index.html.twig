@@ -7,36 +7,40 @@
 {% block body %}
 	<div class="container my-5">
 
-		<h1 class="text-center amatic">Liste des RESERVATIONS </h1>
+		<h1 class="text-center amatic">Liste des RESERVATIONS
+		</h1>
 		<br><br>
 
 
 		<section>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col">Date de reservation</th>
-							<th scope="col">Créneaux</th>
-							<th scope="col">Nombre de personne(s)</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for reservation in reservations %}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">DATE</th>
+						<th scope="col">CREANEUX</th>
+						<th scope="col">NOMMBRE PERS</th>
+						<th scope="col">ACTION</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for reservation in reservations %}
 						<tr>
 							<td>{{reservation.reservationDate| date('d/m/Y')}}</td>
 							<td>{{reservation.slot}}</td>
 							<td>{{reservation.nbPerson}}</td>
+							<td>
+								<a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a>
+							</td>
+							<td>
+								<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</a>
+							</td>
 						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				
+					{% endfor %}
+				</tbody>
+			</table>
+
 
 		</section>
 		<br><br>
 	</div>
 {% endblock %}
-
-
-
-    
