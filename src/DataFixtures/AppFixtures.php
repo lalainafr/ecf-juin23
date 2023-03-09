@@ -47,7 +47,9 @@ class AppFixtures extends Fixture
         $admin->setFullName('Administrateur du restaurant')
             ->setEmail('admin@lalaina-rajaonahsoa.com')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
-            ->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+            ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
+            ->setNbGuest(0);
+
         $users[] = $admin;
         $manager->persist($admin);
 
@@ -57,7 +59,8 @@ class AppFixtures extends Fixture
             $client->setFullName($this->faker->name())
                 ->setEmail($this->faker->email())
                 ->setRoles(['ROLE_USER'])
-                ->setPassword($this->hasher->hashPassword($client, 'azerty'));
+                ->setPassword($this->hasher->hashPassword($client, 'azerty'))
+                ->setNbGuest($this->faker->numberBetween(2, 5));
             $users[] = $client;
             $manager->persist($client);
         }

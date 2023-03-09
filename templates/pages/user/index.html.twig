@@ -17,6 +17,7 @@
 				<thead>
 					<tr>
 						<th scope="col">DATE</th>
+						<th scope="col">NOM ET PRENOM</th>
 						<th scope="col">CREANEUX</th>
 						<th scope="col">NOMBRE PERS</th>
 						<th scope="col">ACTION</th>
@@ -26,6 +27,7 @@
 					{% for reservation in reservations %}
 						<tr>
 							<td>{{reservation.reservationDate| date('d/m/Y')}}</td>
+							<td>{{reservation.fullName}}</td>
 							<td>{{reservation.slot}}</td>
 							<td>{{reservation.nbPerson}}</td>
 							{# Ne plus autoriser les changements du jour J ainsi que les passés #}

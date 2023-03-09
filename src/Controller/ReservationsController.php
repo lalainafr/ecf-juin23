@@ -24,7 +24,15 @@ class ReservationsController extends AbstractController
     public function index(Request $resquest, EntityManagerInterface $em, ReservationsRepository $reservationsRepository): Response
     {
         $reservations = new Reservations();
+
+        // Si l'utilisateur est connecté, on prépopuler le formulaire avec ses informations par défaut (nom et prénom, nombre de convive, allergie)
+        if ($this->getUser()) {
+            $reservations->setFullName($this->getUser()->getFullName());
+            $reservations->setNbPerson($this->getUser()->getNbGuest());
+        }
+
         $form = $this->createForm(ReservationsType::class, $reservations);
+
         $form->handleRequest($resquest);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -32,11 +40,11 @@ class ReservationsController extends AbstractController
 
             $nbPerson = $reservation->getNbPerson();
 
-             // --- NE PAS PERMETTRE DE CHOISIR UNE DATE ANTERIEUR A LA DATE DU JOUR ---
-             $dateNow = new DateTime("- 1 days");
-             $newDate = $reservation->getReservationDate();
+            // --- NE PAS PERMETTRE DE CHOISIR UNE DATE ANTERIEUR A LA DATE DU JOUR ---
+            $dateNow = new DateTime("- 1 days");
+            $newDate = $reservation->getReservationDate();
 
-             if ($newDate < $dateNow) {
+            if ($newDate < $dateNow) {
                 $this->addFlash('error', 'Date antérieure à la date du jour non autorisée');
                 return $this->redirectToRoute('app_reservations_new');
             }
@@ -111,6 +119,7 @@ class ReservationsController extends AbstractController
         $oldAvailability = $availabilityRepository->findOneBy(["id" => $oldId]);
         $oldNbPerson = ($oldAvailability->getGuestMax());
         $oldSlot = $reservation->getSlot();
+
         // --- Données utiles pour la gestion des CRENEAUX INDISPONIBLES
         // On récupére dans un tableau la liste des dates et des slots qui ont déja été résérvés
         $resa1 = $reservationsRepository->findAll();
@@ -161,7 +170,6 @@ class ReservationsController extends AbstractController
             $nbPersonDifference = $newNbPerson - $oldNbPerson;
             if ($oldDate == $newDate) {
 
-
                 // --- CRENEAU INDISPONIBLE (si le creneau a deja ete pris) ---
                 // On verifie dans le tableaux si le slot à une date données choisi par le client a déja été pris dans les reservations
                 // N'est pas valable si les slots sont les memes
@@ -206,13 +214,19 @@ class ReservationsController extends AbstractController
                     if ($reservation->getSlot() == $slotArrayPerDate1[$i]['slot'] && $reservation->getReservationDate() == $slotArrayPerDate1[$i]['date']) {
                         $this->addFlash('error', 'Le créneau n\'est plus disponible');
                         return $this->redirectToRoute('app_reservations_edit', ['id' => $reservation->getId()]);
-                    } 
+                    }
                 }
             }
 
             $em->flush();
 
-            return $this->redirectToRoute('app_reservations_new');
+            $roles = $this->getUser()->getRoles();
+
+            if (in_array("ROLE_ADMIN", $roles)) {
+                return $this->redirectToRoute('app_reservations_list');
+            } else {
+                return $this->redirectToRoute('app_user_reservations');
+            }
         }
 
         return $this->render('pages/reservations/edit.html.twig', [

@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservations::class)]
     private Collection $reservations;
+
+    #[ORM\Column]
+    private ?int $nbGuest = null;
    
     function __toString()
     {
@@ -182,6 +185,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNbGuest(): ?int
+    {
+        return $this->nbGuest;
+    }
+
+    public function setNbGuest(int $nbGuest): self
+    {
+        $this->nbGuest = $nbGuest;
 
         return $this;
     }

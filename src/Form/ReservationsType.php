@@ -29,9 +29,13 @@ class ReservationsType extends AbstractType
                 'style' => 'display:none'
             ]
         ])
+        ->add('fullName', null, [
+            'label' => 'Nom et prénom'
+        ])
         ->add('nbPerson', null, [
             'label' => 'Nombre de personne(s)'
         ])
+      
         ->add('slot', ChoiceType::class, [
             'label' => 'Créneaux horaires',
             'placeholder' => 'Choisir un creneau',
