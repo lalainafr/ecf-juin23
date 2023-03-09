@@ -18,7 +18,7 @@
 					<tr>
 						<th scope="col">DATE</th>
 						<th scope="col">CREANEUX</th>
-						<th scope="col">NOMMBRE PERS</th>
+						<th scope="col">NOMBRE PERS</th>
 						<th scope="col">ACTION</th>
 					</tr>
 				</thead>
@@ -28,12 +28,17 @@
 							<td>{{reservation.reservationDate| date('d/m/Y')}}</td>
 							<td>{{reservation.slot}}</td>
 							<td>{{reservation.nbPerson}}</td>
+							{# Ne plus autoriser les changements du jour J ainsi que les passés #}
+							{% if date(reservation.reservationDate) < date() %}
 							<td>
-								<a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a>
+								Le changement n'est plus permis
 							</td>
+							{% else %}
 							<td>
-								<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</a>
+								<a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a>&nbsp 
+								<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</i></a>
 							</td>
+							{% endif %}
 						</tr>
 					{% endfor %}
 				</tbody>

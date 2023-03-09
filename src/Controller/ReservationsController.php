@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
+use DateTime;
+use DateInterval;
+use App\Entity\User;
 use App\Entity\Availability;
 use App\Entity\Reservations;
-use App\Entity\User;
 use App\Form\ReservationsType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AvailabilityRepository;
 use App\Repository\ReservationsRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReservationsController extends AbstractController
 {
@@ -28,6 +31,15 @@ class ReservationsController extends AbstractController
             $reservation = $form->getData();
 
             $nbPerson = $reservation->getNbPerson();
+
+             // --- NE PAS PERMETTRE DE CHOISIR UNE DATE ANTERIEUR A LA DATE DU JOUR ---
+             $dateNow = new DateTime("- 1 days");
+             $newDate = $reservation->getReservationDate();
+
+             if ($newDate < $dateNow) {
+                $this->addFlash('error', 'Date antérieure à la date du jour non autorisée');
+                return $this->redirectToRoute('app_reservations_new');
+            }
 
             // --- CHOISIR UN AUTRE JOUR (Inviter le client a choisir un autre jour si le nombre de convive max autorisé est inférieur au nombre de personne dans la reservation) ---
             if ($reservation->getAvailability()->getGuestMax() < $nbPerson) {
@@ -95,9 +107,10 @@ class ReservationsController extends AbstractController
         // On récupére les informations sur la reservation initiale à changer (avant soumission du formulaire)
         $oldId = $reservation->getAvailability()->getId();
         $oldGuestMax = $reservation->getAvailability()->getGuestMax();
+        $oldDate = $reservation->getAvailability()->getDate();
         $oldAvailability = $availabilityRepository->findOneBy(["id" => $oldId]);
         $oldNbPerson = ($oldAvailability->getGuestMax());
-
+        $oldSlot = $reservation->getSlot();
         // --- Données utiles pour la gestion des CRENEAUX INDISPONIBLES
         // On récupére dans un tableau la liste des dates et des slots qui ont déja été résérvés
         $resa1 = $reservationsRepository->findAll();
@@ -114,77 +127,91 @@ class ReservationsController extends AbstractController
         $form =  $this->createForm(ReservationsType::class, $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $reservation = $form->getData();
             $newNbPerson = ($reservation->getNbPerson());
             $newGuestMax = $reservation->getAvailability()->getGuestMax();
+            $newDate = $reservation->getReservationDate();
+            $newSlot = $reservation->getSlot();
+            $dateNow = new DateTime("- 1 days");
 
-            // --- CHOISIR UN AUTRE JOUR (Inviter le client a choisir un autre jour si le nombre de convive max autorisé à la nouvelle date choisie est inférieure au nombre de personne choisi pour la nouvelle date de modification) ---
-
-            if ($newGuestMax < $newNbPerson) {
-                $this->addFlash('error', 'Il n\'y a plus assez de place pour aujourdhui, merci de choisir un autre jour');
+            // --- NE PAS PERMETTRE DE CHOISIR UNE DATE ANTERIEUR A LA DATE DU JOUR ---
+            if ($newDate < $dateNow) {
+                $this->addFlash('error', 'Date antérieure à la date du jour non autorisée');
                 return $this->redirectToRoute('app_reservations_edit', ['id' => $reservation->getId()]);
             }
 
-            // --- MAJ DU NOMBRE DE GUESTMAX ---
-
-            // --- CHANGEMENT DU NOMBRE DE PERSONNES && DATE DIFFERENTE ---
+            // *** DATE DIFFERENTE ***    
+            // --- CHANGEMENT DU NOMBRE DE PERSONNES  ---
             for ($i = 0; $i < count($slotArrayPerDate1); $i++) {
                 // Pour avoir le nombre de personne initial: on recherche l'id de la résevation à changer qui correspond à l'id dans le tableau des réservations effectuées. A partir de l'id on récupere le nombre de personne initiale 
-                if ($slotArrayPerDate1[$i]['id'] == $id ) {
+                if ($slotArrayPerDate1[$i]['id'] == $id) {
                     $oldNbPerson = $slotArrayPerDate1[$i]['nbPerson'];
                 }
             }
-
+            // --- MAJ DU NOMBRE DE GUESTMAX ---
             // Décrementer le nombre de guestMax de la nouvelle date choisie avec le nouveau nombre de personne de la nouvelle date après la soumission d'une reservation
             $reservation->getAvailability()->setGuestMax($newGuestMax - $newNbPerson);
             // Remettre à sa place et incrementer avec nbPerson la valeur de guestMax à la date initiale
             $oldAvailability->setGuestMax($oldGuestMax + $oldNbPerson);
 
-            // --- CHANGEMENT DU NOMBRE DE PERSONNES && MEME DATE ---
 
-            // for ($i = 0; $i < count($slotArrayPerDate1); $i++) {
-            //     // On recherche l'id choisi qui correspond à l'id dans le tableau de réservation-> on prend la date initial
-            //     if ($slotArrayPerDate1[$i]['id'] == $id - 1) {
-            //         $oldDate = $slotArrayPerDate1[$i]['date'];
-            //     }
-            // }
+            // *** MEME DATE ***
+            // --- CHANGEMENT DU NOMBRE DE PERSONNES ---
+            // Différence entre le nombre personnse initial et le nouveau nombre entrée par l'utilisateur
+            $nbPersonDifference = $newNbPerson - $oldNbPerson;
+            if ($oldDate == $newDate) {
 
-            // $newDate = $reservation->getReservationDate();
-            // // Différence entre le nombre personnse initial et le nouveau nombre entrée par l'utilisateur
-            // $nbPersonDifference = $newNbPerson - $oldNbPerson;
 
-            // $oldGuestMax = $oldAvailability->getGuestMax();
+                // --- CRENEAU INDISPONIBLE (si le creneau a deja ete pris) ---
+                // On verifie dans le tableaux si le slot à une date données choisi par le client a déja été pris dans les reservations
+                // N'est pas valable si les slots sont les memes
+                if ($newSlot != $oldSlot)
+                    for ($i = 0; $i < count($slotArrayPerDate1); $i++) {
+                        if ($reservation->getSlot() == $slotArrayPerDate1[$i]['slot'] && $reservation->getReservationDate() == $slotArrayPerDate1[$i]['date']) {
+                            $this->addFlash('error', 'Le créneau n\'est plus disponible');
+                            return $this->redirectToRoute('app_reservations_edit', ['id' => $reservation->getId()]);
+                        }
+                    }
 
-            // if ($oldDate == $newDate) {
-            //     // Si la date choisie pour le changement est égale à la date initiale de la reservation => le nombre de guestMax ne change pas, SINON on rajoute ou enleve la difference entre l'ancien nbPerson et le nouveau
-            //     if ($oldNbPerson === $newNbPerson) {
-            //         $reservation->getAvailability()->setGuestMax($oldGuestMax);
-            //     } elseif ($oldNbPerson > $newNbPerson) {
-            //         $reservation->getAvailability()->setGuestMax($oldGuestMax + abs($nbPersonDifference));
-            //     } else {
-            //         $reservation->getAvailability()->setGuestMax($oldGuestMax - abs($nbPersonDifference));
-            //     }
-            // }
-
-            // --- CRENEAU INDISPONIBLE (si le creneau a deja ete pris) ---
-
-            // On verifie dans le tableaux si le slot à une date données choisi par le client a déja été pris dans les reservations
-            for ($i = 0; $i < count($slotArrayPerDate1); $i++) {
-                if ($reservation->getSlot() == $slotArrayPerDate1[$i]['slot'] && $reservation->getReservationDate() == $slotArrayPerDate1[$i]['date']) {
-                    $this->addFlash('error', 'Le créneau n\'est plus disponible');
+                // --- CHOISIR UN AUTRE JOUR (Inviter le client a choisir un autre jour si le nombre de convive max autorisé à la nouvelle date choisie est inférieure à la différence de nombre de personne (initiale vs nouveau) ---
+                if ($oldGuestMax < $nbPersonDifference) {
+                    $this->addFlash('error', 'Il n\'y a plus assez de place pour aujourdhui, merci de choisir un autre jour');
                     return $this->redirectToRoute('app_reservations_edit', ['id' => $reservation->getId()]);
+                }
+                // --- MAJ DU NOMBRE DE GUESTMAX ---
+                // Si la date choisie pour le changement est égale à la date initiale de la reservation => le nombre de guestMax ne change pas, SINON on rajoute ou enleve la difference entre l'ancien nbPerson et le nouveau
+                if ($oldNbPerson == $newNbPerson) {
+                    $reservation->getAvailability()->setGuestMax($oldGuestMax);
+                } elseif ($oldNbPerson > $newNbPerson) {
+                    $reservation->getAvailability()->setGuestMax($oldGuestMax + abs($nbPersonDifference));
                 } else {
-                    // $this->addFlash('success', 'Votre réservation a été prise en compte');
+                    $reservation->getAvailability()->setGuestMax($oldGuestMax - abs($nbPersonDifference));
+                }
+            }
+
+            // *** DATE DIFFERENTE ***
+            // --- CHOISIR UN AUTRE JOUR (Inviter le client a choisir un autre jour si le nombre de convive max autorisé à la nouvelle date choisie est inférieure au nombre de personne choisi pour la nouvelle date de modification) ---
+            if ($oldDate != $newDate) {
+                if ($newGuestMax < $newNbPerson) {
+                    $this->addFlash('error', 'Il n\'y a plus assez de place pour aujourdhui, merci de choisir un autre jour');
+                    return $this->redirectToRoute('app_reservations_edit', ['id' => $reservation->getId()]);
+                }
+            }
+
+            // *** DATE DIFFERENTE ***
+            // --- CRENEAU INDISPONIBLE (si le creneau a deja ete pris) ---
+            // On verifie dans le tableaux si le slot à une date données choisi par le client a déja été pris dans les reservations
+            if ($oldDate != $newDate) {
+                for ($i = 0; $i < count($slotArrayPerDate1); $i++) {
+                    if ($reservation->getSlot() == $slotArrayPerDate1[$i]['slot'] && $reservation->getReservationDate() == $slotArrayPerDate1[$i]['date']) {
+                        $this->addFlash('error', 'Le créneau n\'est plus disponible');
+                        return $this->redirectToRoute('app_reservations_edit', ['id' => $reservation->getId()]);
+                    } 
                 }
             }
 
             $em->flush();
 
-            // $this->addFlash(
-            //     'success',
-            //     'Votre résevation a été modifié avec succès !'
-            // );
             return $this->redirectToRoute('app_reservations_new');
         }
 

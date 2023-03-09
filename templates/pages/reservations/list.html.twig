@@ -38,8 +38,8 @@
 							<td>{{reservation.slot}}</td>
 							<td>{{reservation.nbPerson}}</td>
 							<td>{{reservation.getUser()}}</td>
-							<td><a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a></td>
-							<td><a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</a></td>
+							<td><a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a> &nbsp   
+							<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</a></td>
 						</tr>
 						{% endfor %}
 					</tbody>
