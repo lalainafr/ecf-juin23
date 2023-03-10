@@ -38,7 +38,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[Assert\NotBlank()]
     #[ORM\Column]
-    private ?string $password = null;
+    private ?string $password = 'paswword';
+
+    /// password non encodée, ne sera pas persisté en bdd
+    private ?string $plainPassword = null;
 
     #[Assert\Length(min: 2, max: 50)]
     #[ORM\Column(length: 50)]
@@ -197,6 +200,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNbGuest(int $nbGuest): self
     {
         $this->nbGuest = $nbGuest;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of plainPassword
+     */ 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set the value of plainPassword
+     *
+     * @return  self
+     */ 
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

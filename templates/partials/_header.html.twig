@@ -7,9 +7,7 @@
 				</div>
 			</div>
 			<div>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-					aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -27,29 +25,35 @@
 							<a class="nav-link " href="{{path('app_reservations_new')}}">RESERVATION</a>
 						</li>
 						{% if not app.user %}
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_login')}}">SE CONNECTER</a>
-						</li>
+							<li>
+								<a class="nav-link" href="{{path('app_registration')}}">CREER UN COMPTE</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('app_login')}}">SE CONNECTER</a>
+							</li>
 						{% else %}
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								<img src="/images/flaticon/utilisateur.png" alt="user icon" width="17">
-								<span class="userName">{{app.user.fullName}}
-								</span>...
-							</a>
-							<ul class="dropdown-menu">
-								{% if "ROLE_ADMIN" in (app.user.roles) %}
-								<li>
-									<a class="dropdown-item" href="{{ path('admin')}}">Adminindexistration</a>
-								</li>
-								{% endif %}
-								<li>
-									<a class="dropdown-item" href="{{path('app_user_reservations')}}">Liste reservations</a>
-									<a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
-								</li>
-							</ul>
-						</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<img src="/images/flaticon/utilisateur.png" alt="user icon" width="17">
+									<span class="userName">{{app.user.fullName}}
+									</span>...
+								</a>
+								<ul class="dropdown-menu">
+									{% if "ROLE_ADMIN" in (app.user.roles) %}
+										<li>
+											<a class="dropdown-item" href="{{path('app_reservations_list')}}">Liste reservations</a>
+											<a class="dropdown-item" href="{{ path('admin')}}">Panel ADMIN</a>
+											<a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
+										</li>
+									{% else %}
+										<li>
+											<a class="dropdown-item" href="{{path('app_user_reservations')}}">Mes reservations</a>
+											<a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
+										</li>
+									{% endif %}
+
+								</ul>
+							</li>
 						{% endif %}
 					</ul>
 				</div>

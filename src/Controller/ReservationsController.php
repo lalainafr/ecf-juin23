@@ -224,8 +224,10 @@ class ReservationsController extends AbstractController
 
             if (in_array("ROLE_ADMIN", $roles)) {
                 return $this->redirectToRoute('app_reservations_list');
-            } else {
+            } elseif (in_array("ROLE_USER", $roles)) {
                 return $this->redirectToRoute('app_user_reservations');
+            } else {
+                return $this->redirectToRoute('app_home');
             }
         }
 
