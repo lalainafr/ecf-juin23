@@ -2,16 +2,19 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
 use DateTime;
 use DateTimeImmutable;
-use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\Constructor;
+use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\Constructor;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -56,6 +59,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $nbGuest = null;
+
+    /**
+     * @Gedmo\Slug(fields={"fullName"})
+     */
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
    
     function __toString()
     {
@@ -66,6 +75,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new DateTimeImmutable();
         $this->reservations = new ArrayCollection();
+    }
+    
+    public function prePersist(){
+        $this->slug = (new Slugify())->slugify($this->fullName);
     }
 
     public function getId(): ?int
@@ -220,6 +233,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

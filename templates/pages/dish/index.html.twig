@@ -46,7 +46,7 @@
 					<div class="bg-plat row text-center">
 						{% for dish in category.getDishes() %}
 							<div class="col-md-6">
-								<a href="{{path('app_dish_show', {id: dish.getId})}}">
+								<a href="{{path('app_dish_show', {slug: dish.getSlug})}}">
 									<span class="dishcat amatic">{{dish.title}}
 									</span>
 								</a>

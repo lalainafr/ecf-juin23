@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: DishRepository::class)]
 #[Vich\Uploadable]
@@ -44,6 +44,12 @@ class Dish
 
     #[ORM\Column]
     private ?bool $isFavorite = null;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     */
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'dishes')]
     private ?Category $Category = null;
@@ -197,6 +203,18 @@ class Dish
         if ($this->formulas->removeElement($formula)) {
             $formula->removeDish($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

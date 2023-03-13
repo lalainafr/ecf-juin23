@@ -19,6 +19,7 @@ class AvailabilityController extends AbstractController
             $data[$key]['date'] = $value->getDate();
             $data[$key]['guestMax'] = $value->getGuestMax();
         }
+
         return new JsonResponse($data);
     }    
 }

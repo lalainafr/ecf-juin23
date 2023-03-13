@@ -21,10 +21,10 @@ class DishController extends AbstractController
         ]);
     }
 
-    #[Route('/carte/{id}', name: 'app_dish_show')]
-    public function show(int $id, DishRepository $dishRepository): Response
+    #[Route('/carte/{slug}', name: 'app_dish_show')]
+    public function show($slug, DishRepository $dishRepository): Response
     {
-        $dish = $dishRepository->findOneById($id);
+        $dish = $dishRepository->findOneBy(["slug" => $slug]);
         return $this->render('pages/dish/show.html.twig', [
             'dish' => $dish,
         ]);

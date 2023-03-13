@@ -10,22 +10,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/reservations', name: 'app_user_reservations')]
-    public function UserReservation(): Response
+    #[Route('/reservations/{slug}', name: 'app_user_reservations')]
+    public function UserReservation(UserRepository $repo, $slug): Response
     {
-        $reservations =  $this->getUser()->getReservations();
+        $user = $repo->findOneBy(["slug" => $slug]);
+        $reservations =  $user->getReservations();
       
         return $this->render('pages/user/index.html.twig', [
             'reservations' => $reservations,
         ]);
     }
 
-    #[Route('/user/profile', name: 'app_user_profile')]
-    public function UserProfile(UserRepository $repo): Response
+    #[Route('/profile/{slug}', name: 'app_user_profile')]
+    public function UserProfile(UserRepository $repo, $slug): Response
     {
+        $user = $repo->findOneBy(["slug" => $slug]);
         
-        $id = $this->getUser()->getId();
-        $user = $repo->findOneBy(["id" => $id]);
         return $this->render('pages/user/profile.html.twig', [
             'user' => $user,
         ]);
