@@ -37,7 +37,15 @@
 				</p>
 				{{ form_row(form.slot)}}
 				{{ form_row(form.nbPerson)}}
-				{{ form_row(form.submit)}}{{ form_end(form) }}</p>
+				<p> Allergie(s)
+					<a href="{{path('app_allergy_new')}}">
+						<small>+</small>
+					</a>
+				</p>	
+				{{ form_row(form.allergies)}}
+
+				{{ form_row(form.submit)}}
+				{{ form_end(form) }}</p>
 		</p>
 	</div>
 </section>

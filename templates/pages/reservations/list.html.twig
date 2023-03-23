@@ -29,6 +29,7 @@
 							<th scope="col">CRENEAU</th>
 							<th scope="col">NOMBRE DE PERS</th>
 							<th scope="col">UTILISATEUR</th>
+							<th scope="col">ALLERGIE(S)</th>
 							<th scope="col">ACTION</th>
 						</tr>
 					</thead>
@@ -40,6 +41,8 @@
 							<td>{{reservation.slot}}</td>
 							<td>{{reservation.nbPerson}}</td>
 							<td>{{reservation.getUser()}}</td>
+							<td>{{reservation.allergies}}</td>
+
 							<td><a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a> &nbsp   
 							<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</a></td>
 						</tr>

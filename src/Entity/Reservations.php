@@ -32,6 +32,9 @@ class Reservations
     #[ORM\Column(length: 255)]
     private ?string $fullName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $allergies = null;
+
 
     public function getId(): ?int
     {
@@ -106,6 +109,18 @@ class Reservations
     public function setFullName(string $fullName): self
     {
         $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    public function getAllergies(): ?string
+    {
+        return $this->allergies;
+    }
+
+    public function setAllergies(?string $allergies): self
+    {
+        $this->allergies = $allergies;
 
         return $this;
     }

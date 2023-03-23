@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Availability;
 use DatePeriod;
 use DateInterval;
 use Faker\Factory;
@@ -11,10 +10,13 @@ use App\Entity\Menu;
 use App\Entity\Open;
 use App\Entity\User;
 use Faker\Generator;
+use App\Entity\Allergy;
 use App\Entity\Formula;
 use App\Entity\Category;
 use App\Entity\GuestMax;
+use App\Entity\Availability;
 use Doctrine\Persistence\ObjectManager;
+use App\Repository\ReservationsRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\VarDumper\Caster\ImgStub;
@@ -31,10 +33,13 @@ class AppFixtures extends Fixture
 
     private UserPasswordHasherInterface $hasher;
 
-    public function __construct(UserPasswordHasherInterface $hasher)
+    private $reservations;
+
+    public function __construct(UserPasswordHasherInterface $hasher, ReservationsRepository $reservationsRepository)
     {
         $this->faker = Factory::create('fr_FR');
         $this->hasher = $hasher;
+        $this->reservations = $reservationsRepository->findAll();
     }
 
     // Mise en place des FIXTURES
@@ -44,8 +49,8 @@ class AppFixtures extends Fixture
         //USER
         // création de l'user admin
         $admin = new User();
-        $admin->setFullName('Administrateur du restaurant')
-            ->setEmail('admin@lalaina-rajaonahsoa.com')
+        $admin->setFullName('Administrateur')
+            ->setEmail('admin@test.test')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
             ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
             ->setNbGuest(0);
@@ -54,10 +59,10 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         //création d'1 admin et de  5 clients avec un mot de passe 'password' qui sera encodé
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $client = new User();
             $client->setFullName($this->faker->name())
-                ->setEmail($this->faker->email())
+                ->setEmail('utilisateur' . $i . '@test.test')
                 ->setRoles(['ROLE_USER'])
                 ->setPassword($this->hasher->hashPassword($client, 'azerty'))
                 ->setNbGuest($this->faker->numberBetween(2, 5));
@@ -123,7 +128,7 @@ class AppFixtures extends Fixture
 
         // HORAIRE D'OUVERTURE
         $day = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        
+
         // Horaire pour lundi 
         $open = new Open();
         $open->setDay($day[0])
@@ -144,20 +149,20 @@ class AppFixtures extends Fixture
             $manager->persist($open);
         }
 
-        
+
         // GUESTMAX per DATE
         $start_date = date_create('2023-01-01');
-        $end_date = date_create('2024-01-01') ; 
+        $end_date = date_create('2024-01-01');
         // L'admin définit le nombre max de convives pour chaque jour jusqu'à la fin de l'année
-        
+
         $interval = DateInterval::createFromDateString('1 day');
-        $daterange = new DatePeriod($start_date, $interval ,$end_date);
-            foreach($daterange as $date1){
-                $availablity = new Availability();
-                $availablity->setDate($date1);
-                $availablity->setGuestMax($this->faker->numberBetween(20,25));
-                $manager->persist($availablity);
-            }
+        $daterange = new DatePeriod($start_date, $interval, $end_date);
+        foreach ($daterange as $date1) {
+            $availablity = new Availability();
+            $availablity->setDate($date1);
+            $availablity->setGuestMax($this->faker->numberBetween(20, 25));
+            $manager->persist($availablity);
+        }
 
         $manager->flush();
     }

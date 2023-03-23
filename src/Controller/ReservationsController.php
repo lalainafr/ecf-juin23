@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Availability;
 use App\Entity\Reservations;
 use App\Form\ReservationsType;
+use App\Repository\AllergyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AvailabilityRepository;
 use App\Repository\ReservationsRepository;
@@ -21,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ReservationsController extends AbstractController
 {
     #[Route('/reservations/new', name: 'app_reservations_new')]
-    public function index(Request $resquest, EntityManagerInterface $em, ReservationsRepository $reservationsRepository): Response
+    public function index(Request $resquest, EntityManagerInterface $em, ReservationsRepository $reservationsRepository, AllergyRepository $allergyRepository): Response
     {
         $reservations = new Reservations();
 
@@ -29,6 +30,12 @@ class ReservationsController extends AbstractController
         if ($this->getUser()) {
             $reservations->setFullName($this->getUser()->getFullName());
             $reservations->setNbPerson($this->getUser()->getNbGuest());
+            $tableauAllergie = [];
+            for ($i=0; $i < count($this->getUser()->getAllergies()); $i++) { 
+                $tableauAllergie[] = $this->getUser()->getAllergies()->getValues()[$i]->getName();
+            }
+            $reservations->setAllergies(implode(", ", $tableauAllergie));
+
         }
 
         $form = $this->createForm(ReservationsType::class, $reservations);
@@ -90,11 +97,24 @@ class ReservationsController extends AbstractController
 
             $em->persist($reservation);
             $em->flush();
-            return $this->redirectToRoute('app_reservations_new');
+
+            $roles = $this->getUser()->getRoles();
+
+            if (in_array("ROLE_ADMIN", $roles)) {
+                return $this->redirectToRoute('app_reservations_list');
+            } elseif (in_array("ROLE_USER", $roles)) {
+                return $this->redirectToRoute('app_user_reservations',['slug'=> $this->getUser()->getSlug()]);
+            } else {
+                return $this->redirectToRoute('app_home');
+            }
         }
+
+        // récuperer la liste des allergies de l'utilisateur connecté pour les passer au template de reservation
+        $allergies = $allergyRepository->findBy(['owner' => $this->getUser()]);
 
         return $this->render('pages/reservations/index.html.twig', [
             'form' => $form->createView(),
+            'allergies' => $allergies,
         ]);
     }
 
@@ -112,6 +132,16 @@ class ReservationsController extends AbstractController
     public function edit(ReservationsRepository $reservationsRepository, $id, Request $request, EntityManagerInterface $em, AvailabilityRepository $availabilityRepository): Response
     {
         $reservation = $reservationsRepository->findOneBy(["id" => $id]);
+
+        // On prepopule le formulaire d'edition des allergies de l'utilisateur connecté
+        if ($this->getUser()) {
+            $tableauAllergie = [];
+            for ($i=0; $i < count($this->getUser()->getAllergies()); $i++) { 
+                $tableauAllergie[] = $this->getUser()->getAllergies()->getValues()[$i]->getName();
+            }
+            $reservation->setAllergies(implode(", ", $tableauAllergie));
+        }
+
         // On récupére les informations sur la reservation initiale à changer (avant soumission du formulaire)
         $oldId = $reservation->getAvailability()->getId();
         $oldGuestMax = $reservation->getAvailability()->getGuestMax();
@@ -253,7 +283,7 @@ class ReservationsController extends AbstractController
         if (in_array("ROLE_ADMIN", $roles)) {
             return $this->redirectToRoute('app_reservations_list');
         } else {
-            return $this->redirectToRoute('app_user_reservations');
+            return $this->redirectToRoute('app_user_reservations', ['slug' => $this->getUser()->getSlug()]);
         }
     }
 }

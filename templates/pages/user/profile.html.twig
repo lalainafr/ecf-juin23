@@ -26,6 +26,14 @@
 							<td>{{user.nbGuest}}</td>
 						</tr>
 						<tr>
+							<td>ALLERGIE(S):</td>
+							<td>
+								{% for allergy in allergies %}
+									{{ allergy}}
+								{% endfor %}
+							</td>
+						</tr>
+						<tr>
 							<td>COMPTE CREE LE:</td>
 							<td>{{user.createdAt| date('d/m/Y')}}</td>
 						</tr>

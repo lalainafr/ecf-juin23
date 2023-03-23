@@ -7,10 +7,12 @@ use App\Entity\Reservations;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ReservationsType extends AbstractType
 {
@@ -29,13 +31,15 @@ class ReservationsType extends AbstractType
                 'style' => 'display:none'
             ]
         ])
-        ->add('fullName', null, [
+        ->add('fullName', TextType::class, [
             'label' => 'Nom et prénom'
         ])
         ->add('nbPerson', null, [
             'label' => 'Nombre de personne(s)'
         ])
-      
+        ->add('allergies', TextareaType::class, [
+            'label' =>  false,
+        ])
         ->add('slot', ChoiceType::class, [
             'label' => 'Créneaux horaires',
             'placeholder' => 'Choisir un creneau',
