@@ -17,7 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 class ReservationsController extends AbstractController
 {
@@ -118,7 +122,8 @@ class ReservationsController extends AbstractController
         ]);
     }
 
-    #[Route('/reservations/list', name: 'app_reservations_list')]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('reservations/list', name: 'app_reservations_list')]
     public function list(ReservationsRepository $repo): Response
     {
         $reservations = $repo->findAll();
@@ -128,8 +133,10 @@ class ReservationsController extends AbstractController
         ]);
     }
 
+    // Seul l'admin ou  l'utilisateur connecté et propriétaire de la réservation pourra mofdifier sa réservation
+    #[Security("is_granted('ROLE_USER') and user === reservations.getUser() or is_granted('ROLE_ADMIN')")]
     #[Route('/reservations/edit/{id}', name: 'app_reservations_edit')]
-    public function edit(ReservationsRepository $reservationsRepository, $id, Request $request, EntityManagerInterface $em, AvailabilityRepository $availabilityRepository): Response
+    public function edit(Reservations $reservations, ReservationsRepository $reservationsRepository, $id, Request $request, EntityManagerInterface $em, AvailabilityRepository $availabilityRepository): Response
     {
         $reservation = $reservationsRepository->findOneBy(["id" => $id]);
 
@@ -266,8 +273,10 @@ class ReservationsController extends AbstractController
         ]);
     }
 
+    // Seul l'admin ou l'utilisateur connecté et propriétaire de la réservation pourra supprimer sa réservation
+    #[Security("is_granted('ROLE_USER') and user === reservations.getUser() or is_granted('ROLE_ADMIN')")]
     #[Route('/reservations/delete/{id}', name: 'app_reservations_delete', methods: ['GET'])]
-    public function delete(ReservationsRepository $repo, EntityManagerInterface $em, Request $request, $id): Response
+    public function delete(Reservations $reservations, ReservationsRepository $repo, EntityManagerInterface $em, Request $request, $id): Response
     {
         $reservation = $repo->findOneBy(["id" => $id]);
         $em->remove($reservation);

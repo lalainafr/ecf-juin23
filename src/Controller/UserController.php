@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
-use App\Repository\ReservationsRepository;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Repository\ReservationsRepository;
 use ContainerYnw6cDQ\getReservationsService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class UserController extends AbstractController
 {
+    // Seul un utilisateur connecté  pourra consulter les réservations dont il est le propriétaire
+    #[Security("is_granted('ROLE_USER') and user.getSlug() === slug")]
     #[Route('/reservations/{slug}', name: 'app_user_reservations')]
     public function UserReservation(UserRepository $repo, $slug, ReservationsRepository $reservationsRepository): Response
     {
@@ -18,13 +23,14 @@ class UserController extends AbstractController
         $reservations =  $reservationsRepository->findBy(['user' => $this->getUser()]);
         $allergies = $this->getArrayAllergies($user);
 
-
         return $this->render('pages/user/index.html.twig', [
             'reservations' => $reservations,
             'allergies' => $allergies,
         ]);
     }
 
+    // Seul un utilisateur connecté  pourra consulter le profil dont il est le propriétaire
+    #[Security("is_granted('ROLE_USER') and user.getSlug() === slug")]
     #[Route('/profile/{slug}', name: 'app_user_profile')]
     public function UserProfile(UserRepository $repo, $slug): Response
     {

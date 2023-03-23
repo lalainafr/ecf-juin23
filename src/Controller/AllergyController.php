@@ -3,16 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Allergy;
-use App\Entity\Reservations;
 use App\Form\AllergyType;
+use App\Entity\Reservations;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AllergyController extends AbstractController
 {
+    // Seul un utilisateur connecté pourra ajouter une allergie    
+    #[Security("is_granted('ROLE_USER')")]
     #[Route('/allergy/new', name: 'app_allergy_new')]
     public function index(Request $request, EntityManagerInterface $em): Response
     {
