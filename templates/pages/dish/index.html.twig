@@ -40,10 +40,10 @@
 		<section>
 			<div class="container">
 				{% for category in categories %}
-					<p class="plat-logo text-secondary ">
+					<p class="dishCategory plat-logo text-secondary ">
 						{{ category.name}}
 						...</p>
-					<div class="bg-plat row text-center">
+					<div class="dishContent bg-plat row text-center">
 						{% for dish in category.getDishes() %}
 							<div class="col-md-6">
 								<a href="{{path('app_dish_show', {slug: dish.getSlug})}}">
@@ -57,7 +57,7 @@
 								{{dish.price | number_format(2, '.', ',')}}
 								€
 							</div>
-							<div class="col-md-6">
+							<div class=" dishPhoto col-md-6">
 								<div>
 									<img class='image-carte' src="/uploads/dish/{{dish.image}}" alt="image">
 								</div>

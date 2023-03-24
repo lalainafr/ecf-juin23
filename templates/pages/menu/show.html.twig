@@ -31,21 +31,22 @@
 		</section>
 
 		{% for menu in menus %}
-			<h1 class=" plat-logo text-secondary">
+			<h1 class="menuTitle plat-logo text-secondary">
 				... '{{ menu.title}}'
 			</h1>
 
 			<br>
+
       <!-- Section liste des menus-->
 			<section>
 				{% for formula in menu.formula %}
 
-					<div class=" bg-formula row mb-4">
+					<div class=" formulaTitle bg-formula row mb-4">
 						<div class="col-sm-6">
 							<div class="d-flex">
 								<img src="/images/flaticon/coutellerie.png" alt="img-menu" class="logo-menu">
 								&nbsp
-								<h3 class="text-muted amatic">
+								<h3 class=" text-muted amatic">
 									{{formula.name}}</h3>
 							</div>
 						</div>
@@ -56,9 +57,7 @@
 						</div>
 					</div>
 					{% for dish in formula.dish %}
-						<ul>
-							<li>
-								<div class="row">
+								<div class="plat row">
 									<div class="col-sm-6">
 										<div class="text-info">
 											{{dish.title}}
@@ -71,8 +70,6 @@
 										<img class="menu-img" src="/uploads/dish/{{dish.image}}" alt="image menu">
 									</div>
 								</div>
-							</li>
-						</ul>
 						<br>
 					{% endfor %}
 				{% endfor %}

@@ -94,8 +94,8 @@
 } 
 
 img.image-carte{
-    width: 200px;
-    height:180px
+    width: 180px;
+    height:160px
 }
 
 img.detail-img{
@@ -119,7 +119,7 @@ span.dishcat{
     text-align: end;
 }
 
-li .menu-img{
+.menu-img{
     border-radius: 50%;
     width: 110px;
     height: 110px;

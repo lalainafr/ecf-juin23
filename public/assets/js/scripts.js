@@ -1,9 +1,66 @@
 
+//  --- JQUERY  --- 
+
+
+// ANIMATION PAGE ACCUEIL
+
+$('.homeContent').hide();
+$('.homeImage').hide();
+
+$('.homeTitle').click(()=> {
+    $('.homeContent').fadeToggle();
+})
+$('.homeContent').click(()=> {
+    $('.homeImage').fadeToggle();
+})
+
+$('.homeImage').click(()=> {
+    $('.homeContent').slideToggle();
+    $('.homeImage').slideUp()
+})
+
+
+// ANIMATION PAGE MENU
+
+$('.formulaTitle').hide();
+$('.plat').hide();
+
+$('.menuTitle').click(()=> {
+    $('.formulaTitle').fadeToggle();
+})
+
+$('.formulaTitle').click(()=> {
+    $('.plat').fadeToggle().animate ({opacity : .6, margin :30}) ;
+})
+
+$('.plat').click(()=> {
+    $('.plat').slideUp();
+})
+
+
+// ANIMATION PAGE CARTE
+
+$('.dishContent').hide();
+$('.dishPhoto').hide();
+
+$('.dishCategory').click(()=> {
+    $('.dishContent').fadeToggle().animate ({opacity : .6, margin :30}) ;
+})
+$('.dishContent').click(()=> {
+    $('.dishPhoto').fadeToggle();
+    $('.dishContent').animate ({
+        opacity : .6,
+    margin :10
+    }) ;
+})
+
+// --- AJAX EN JS VANILLA --- 
+
 // Récuperer la valeur de la date choisie par l'utilisateur
 let reservationDate =  document.getElementById('reservations_reservationDate')
 let liste = document.getElementById('reservations_availability')
 
-reservationDate.addEventListener('change', function(){
+reservationDate.addEventListener('change', () => {
     var choosenDate = reservationDate.value
     
     // Voir la longueur du tableau des dates avec les disponibilités
@@ -22,7 +79,7 @@ reservationDate.addEventListener('change', function(){
             // Dans la liste des availability, mettre selected="selected" sur la date choisie
             liste.options[i].selected = true
             var id = i
-        }
+        }s
     } 
     
     // Récuperer en AJAX le nombre de guestMax pour la date selectionnée
@@ -46,4 +103,5 @@ reservationDate.addEventListener('change', function(){
     launchAjax()
   
 })
+
 
