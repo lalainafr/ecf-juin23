@@ -35,16 +35,10 @@ class AllergyController extends AbstractController
             $em->persist($allergy);
             $em->flush();
 
+            $this->addFlash('success', 'Votre allergie a été rajoutée dans votre compte');
+
             return $this->redirectToRoute('app_user_profile',['slug'=> $this->getUser()->getSlug()]);
 
-            // $roles = $this->getUser()->getRoles();
-
-            // if (in_array("ROLE_ADMIN", $roles)) {
-            //     return $this->redirectToRoute('app_reservations_list');
-            // } elseif (in_array("ROLE_USER", $roles)) {
-            // } else {
-            //     return $this->redirectToRoute('app_home');
-            // }
         }
 
         return $this->render('pages/allergy/index.html.twig', [

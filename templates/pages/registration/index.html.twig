@@ -7,12 +7,12 @@
 {% block body %}
 	<div class="container my-5">
 
-        {# Message flash #}
-		{# {% if error %}
-			<div class="alert alert-danger">
-				<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-			</div>
-		{% endif %} #}
+      {# Message flash #}
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
 
 		<h1 class="text-center amatic">I N S C R I P T I O N</h1>
 		<br><br>

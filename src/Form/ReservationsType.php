@@ -39,6 +39,7 @@ class ReservationsType extends AbstractType
         ])
         ->add('allergies', TextareaType::class, [
             'label' =>  false,
+            'required' =>  false,
         ])
         ->add('slot', ChoiceType::class, [
             'label' => 'Créneaux horaires',

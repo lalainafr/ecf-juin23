@@ -7,13 +7,11 @@
 	<div
 		class="container mt-2">
 		{# Message flash #}
-		{% if app.user %}
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">
 					{{ message }}
 				</div>
 			{% endfor %}
-		{% endif %}
 
 		<div>
 			<h1 class="amatic title text-info">
@@ -76,16 +74,18 @@
 			<div class="row">
 				<div>
 					<img src="/images/flaticon/chef.png" alt="image accueil" class="img-flaticon">
-					<h2 class="homeTitle passion text-muted">Un chef etoilé avec un savoir faire exceptioinel qui met à votre disposition ses compétences ...
+					<h2 class="homeTitle passion text-muted">Un chef etoilé <span><small> -> Cliquer pour en savoir plus ... </small></span> 
 					</h2>
 				</div>
 				<br>
 				<div class=" homeImage col-sm-12 col-md-6 col-lg-4">
-					<img src="/images/img4.jpg" alt="image accueil" class="image4">
+					<img src="/images/img4.jpg" alt="image accueil" class="image4"><br>
+                    <span class="text-muted"><small> -> Cliquer sur la photo pour en voir moins ... </small></span>
 				</div>
 				<div class=" homeContent col-sm-12 col-md-6 col-lg-8">
 					<div class="row">
 						<div class="col-md-12">
+                        <span class="text-muted"><small> -> Cliquer pour en savoir plus ... </small></span <br>
 							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis animi dolorem fugiat aliquid doloremque rerum nemo, neque non repudiandae adipisci ipsum et odit, ducimus laudantium molestias amet, eaque cumque similique?</p>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, necessitatibus. Itaque soluta, necessitatibus totam iusto a blanditiis sed unde accusamus illum quam! Non aliquam, porro fugit at eum dolorem tenetur.</p>onsectetur adipisicing elit. Nemo suscipit tempore ea eius incidunt nam at quos perspiciatis non eveniet, magnam, adipisci distinctio quo animi illum numquam. Voluptates consequuntur quod ipsa hic culpa expedita iusto at ratione molestiae nobis veritatis commodi non a asperiores est voluptatem, illo velit reiciendis debitis quibusdam. Voluptatum sunt molestiae debitis voluptate, enim ut neque. Nobis?</p>
 					</div>
@@ -94,13 +94,14 @@
 		</section>
 	    <br>
 
-    <section>    
-        <p>N'attendez plus pour réserver votre table...</p>
-        <a class="btn btn-info btn" href="{{path('app_reservations_new')}}" role="button">Reserver</a>
+        <section class=" float-end">    
+            <p>N'attendez plus pour réserver votre table...</p>
+            <a class="btn btn-info btn" href="{{path('app_reservations_new')}}" role="button">Reserver</a>
+        </section>
         <br>
         <br>
         <br>
-    </section>
+
         <!-- {# Liste de plats préférés par les clients #} -->
         <section>
             <img src="/images/flaticon/cloche.png" alt="img-table" class="img-flaticon">

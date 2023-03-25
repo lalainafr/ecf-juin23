@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}
 	Liste des reservations d'un utilisateur
 {% endblock %}
 
 {% block body %}
-	<div class="container my-5">
+	<div
+		class="container my-5">
+
+		{# Message flash #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
 
 		<h1 class="text-center amatic">Liste des RESERVATIONS
 		</h1>
@@ -22,7 +31,7 @@
 						<th scope="col">ACTION</th>
 					</tr>
 				</thead>
-						
+
 				<tbody>
 					{% for reservation in reservations %}
 						<tr>
@@ -32,22 +41,19 @@
 
 							{# Ne plus autoriser les changements du jour J ainsi que les passés #}
 							{% if date(reservation.reservationDate) < date() %}
-							<td>
-								Le changement n'est plus permis
-							</td>
+								<td>
+									Le changement n'est plus permis
+								</td>
 							{% else %}
-							<td>
-								<a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a>&nbsp 
-								<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</i></a>
-							</td>
-							{% endif %}
+								<td>
+									<a href="{{path('app_reservations_edit', {id: reservation.id})}}">edit</a>&nbsp
+									<a href="{{path('app_reservations_delete', {id: reservation.id})}}">delete</i>
+								</td>
+							</a>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-
-
-		</section>
-		<br><br>
-	</div>
-{% endblock %}
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table></section><br><br></div>{% endblock %}

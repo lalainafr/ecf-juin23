@@ -42,7 +42,14 @@
 				{% for category in categories %}
 					<p class="dishCategory plat-logo text-secondary ">
 						{{ category.name}}
-						...</p>
+						...
+						<span class="text-muted">
+							<small>
+								-> Cliquer pour en savoir plus ...
+							</small>
+						</span<br>
+
+					</p>
 					<div class="dishContent bg-plat row text-center">
 						{% for dish in category.getDishes() %}
 							<div class="col-md-6">
@@ -56,10 +63,22 @@
 								<br>
 								{{dish.price | number_format(2, '.', ',')}}
 								€
+								<br>
+								<span class="text-muted">
+									<small>
+										-> Cliquer pour en savoir plus ...
+									</small>
+								</span<br>
 							</div>
 							<div class=" dishPhoto col-md-6">
 								<div>
 									<img class='image-carte' src="/uploads/dish/{{dish.image}}" alt="image">
+									<span class="text-muted">
+										<small>
+											-> Cliquer sur la photo pour en voir moins ...
+										</small>
+									</span>
+
 								</div>
 								<br>
 							</div>

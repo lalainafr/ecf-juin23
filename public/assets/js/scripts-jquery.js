@@ -6,10 +6,10 @@ $('.homeContent').hide();
 $('.homeImage').hide();
 
 $('.homeTitle').click(()=> {
-    $('.homeContent').fadeToggle();
+    $('.homeContent').fadeToggle(2000);
 })
 $('.homeContent').click(()=> {
-    $('.homeImage').fadeToggle();
+    $('.homeImage').fadeToggle(2000);
 })
 
 $('.homeImage').click(()=> {
@@ -24,11 +24,11 @@ $('.formulaTitle').hide();
 $('.plat').hide();
 
 $('.menuTitle').click(()=> {
-    $('.formulaTitle').fadeToggle();
+    $('.formulaTitle').fadeToggle(2000);
 })
 
 $('.formulaTitle').click(()=> {
-    $('.plat').fadeToggle().animate ({opacity : .6, margin :30}) ;
+    $('.plat').fadeToggle(2000).animate ({opacity : .7, margin :30}) ;
 })
 
 $('.plat').click(()=> {
@@ -42,13 +42,13 @@ $('.dishContent').hide();
 $('.dishPhoto').hide();
 
 $('.dishCategory').click(()=> {
-    $('.dishContent').fadeToggle().animate ({opacity : .6, margin :30}) ;
+    $('.dishContent').fadeToggle(2000).animate ({opacity : .7, margin :30}) ;
 })
 
 $('.dishContent').click(()=> {
-    $('.dishPhoto').fadeToggle();
+    $('.dishPhoto').fadeToggle(2000);
     $('.dishContent').animate ({
-        opacity : .6,
+        opacity : .7,
         margin :10
     }); 
 });

@@ -12,6 +12,7 @@ use App\Repository\AllergyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AvailabilityRepository;
 use App\Repository\ReservationsRepository;
+use Gedmo\Mapping\Annotation\Slug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,11 +36,10 @@ class ReservationsController extends AbstractController
             $reservations->setFullName($this->getUser()->getFullName());
             $reservations->setNbPerson($this->getUser()->getNbGuest());
             $tableauAllergie = [];
-            for ($i=0; $i < count($this->getUser()->getAllergies()); $i++) { 
+            for ($i = 0; $i < count($this->getUser()->getAllergies()); $i++) {
                 $tableauAllergie[] = $this->getUser()->getAllergies()->getValues()[$i]->getName();
             }
             $reservations->setAllergies(implode(", ", $tableauAllergie));
-
         }
 
         $form = $this->createForm(ReservationsType::class, $reservations);
@@ -94,21 +94,24 @@ class ReservationsController extends AbstractController
                 if ($reservation->getSlot() == $slotArrayPerDate[$i]['slot'] && $reservation->getReservationDate() == $slotArrayPerDate[$i]['date']) {
                     $this->addFlash('error', 'Le créneau n\'est plus disponible');
                     return $this->redirectToRoute('app_reservations_new');
-                } else {
-                    // $this->addFlash('success', 'Votre réservation a été prise en compte');
-                }
+                }    
             }
 
             $em->persist($reservation);
             $em->flush();
-
-            $roles = $this->getUser()->getRoles();
-
-            if (in_array("ROLE_ADMIN", $roles)) {
-                return $this->redirectToRoute('app_reservations_list');
-            } elseif (in_array("ROLE_USER", $roles)) {
-                return $this->redirectToRoute('app_user_reservations',['slug'=> $this->getUser()->getSlug()]);
+            
+            if ($this->getUser()) {
+                $roles = $this->getUser()->getRoles();
+                if (in_array("ROLE_ADMIN", $roles)) {
+                    return $this->redirectToRoute('app_reservations_list');
+                } elseif (in_array("ROLE_USER", $roles)) {
+                    $this->addFlash('success', 'Votre réservation a été prise en compte');
+                    return $this->redirectToRoute('app_user_reservations', ['slug' => $this->getUser()->getSlug()]);
+                } else {
+                    return $this->redirectToRoute('app_home');
+                }
             } else {
+                $this->addFlash('success', 'Votre réservation a été prise en compte');
                 return $this->redirectToRoute('app_home');
             }
         }
@@ -140,15 +143,6 @@ class ReservationsController extends AbstractController
     {
         $reservation = $reservationsRepository->findOneBy(["id" => $id]);
 
-        // On prepopule le formulaire d'edition des allergies de l'utilisateur connecté
-        if ($this->getUser()) {
-            $tableauAllergie = [];
-            for ($i=0; $i < count($this->getUser()->getAllergies()); $i++) { 
-                $tableauAllergie[] = $this->getUser()->getAllergies()->getValues()[$i]->getName();
-            }
-            $reservation->setAllergies(implode(", ", $tableauAllergie));
-        }
-
         // On récupére les informations sur la reservation initiale à changer (avant soumission du formulaire)
         $oldId = $reservation->getAvailability()->getId();
         $oldGuestMax = $reservation->getAvailability()->getGuestMax();
@@ -169,6 +163,7 @@ class ReservationsController extends AbstractController
             $slotArrayPerDate1[$i]['nbPerson'] = $resa1[$i]->getNbPerson();
         }
 
+        
         // TRAITEMENT DU FORMULAIRE
         $form =  $this->createForm(ReservationsType::class, $reservation);
         $form->handleRequest($request);
@@ -257,12 +252,21 @@ class ReservationsController extends AbstractController
 
             $em->flush();
 
+          
             $roles = $this->getUser()->getRoles();
 
             if (in_array("ROLE_ADMIN", $roles)) {
+                $this->addFlash(
+                    'success',
+                    'La réservation a été modifiée avec succès !'
+                );
                 return $this->redirectToRoute('app_reservations_list');
             } elseif (in_array("ROLE_USER", $roles)) {
-                return $this->redirectToRoute('app_user_reservations',['slug'=> $this->getUser()->getSlug()]);
+                $this->addFlash(
+                    'success',
+                    'La réservation a été modifiée avec succès !'
+                );
+                return $this->redirectToRoute('app_user_reservations', ['slug' => $this->getUser()->getSlug()]);
             } else {
                 return $this->redirectToRoute('app_home');
             }
@@ -270,6 +274,7 @@ class ReservationsController extends AbstractController
 
         return $this->render('pages/reservations/edit.html.twig', [
             'form' => $form->createView(),
+            
         ]);
     }
 
@@ -282,16 +287,19 @@ class ReservationsController extends AbstractController
         $em->remove($reservation);
         $em->flush();
 
-        $this->addFlash(
-            'success',
-            'La réseevation a été supprimée avec succès !'
-        );
-
         $roles = $this->getUser()->getRoles();
 
         if (in_array("ROLE_ADMIN", $roles)) {
+            $this->addFlash(
+                'success',
+                'La réservation a été supprimée avec succès !'
+            );
             return $this->redirectToRoute('app_reservations_list');
         } else {
+            $this->addFlash(
+                'success',
+                'La réservation a été supprimée avec succès !'
+            );
             return $this->redirectToRoute('app_user_reservations', ['slug' => $this->getUser()->getSlug()]);
         }
     }

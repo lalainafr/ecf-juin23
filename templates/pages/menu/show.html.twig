@@ -33,11 +33,14 @@
 		{% for menu in menus %}
 			<h1 class="menuTitle plat-logo text-secondary">
 				... '{{ menu.title}}'
+				<span class="text-muted">
+					<small>
+						-> Cliquer pour en savoir plus ...
+					</small>
+				</span>
 			</h1>
 
-			<br>
-
-      <!-- Section liste des menus-->
+			<!-- Section liste des menus-->
 			<section>
 				{% for formula in menu.formula %}
 
@@ -49,6 +52,11 @@
 								<h3 class=" text-muted amatic">
 									{{formula.name}}</h3>
 							</div>
+							<span class="text-muted">
+								<small>
+									-> Cliquer pour en savoir plus ...
+								</small>
+							</span>
 						</div>
 						<div class="col-sm-6 text-end">
 							<p class="passion">{{formula.description}}</p>
@@ -57,19 +65,25 @@
 						</div>
 					</div>
 					{% for dish in formula.dish %}
-								<div class="plat row">
-									<div class="col-sm-6">
-										<div class="text-info">
-											{{dish.title}}
-										</div>
-										<small>
-											{{dish.description}}
-										</small>
-									</div>
-									<div class="col-sm-6 text-center">
-										<img class="menu-img" src="/uploads/dish/{{dish.image}}" alt="image menu">
-									</div>
+						<div class="plat row">
+							<div class="col-sm-6">
+								<span class="text-muted">
+									<small>
+										-> Cliquer pour en voir moins ...
+									</small>
+								</span>
+								<div class="text-info">
+								<br>
+									{{dish.title}}
 								</div>
+								<small>
+									{{dish.description}}
+								</small>
+							</div>
+							<div class="col-sm-6 text-center">
+								<img class="menu-img" src="/uploads/dish/{{dish.image}}" alt="image menu">
+							</div>
+						</div>
 						<br>
 					{% endfor %}
 				{% endfor %}

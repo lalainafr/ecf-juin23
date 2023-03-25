@@ -23,11 +23,6 @@ class LoginController extends AbstractController
         // last username entered by the user   
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $this->addFlash(
-            'success',
-            'Vous êtes bien connecté',
-        );
-
         return $this->render('pages/login/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
@@ -52,6 +47,8 @@ class LoginController extends AbstractController
             $form->getData()->setPassword($hash);
             $em->persist($form->getData());
             $em->flush();
+            $this->addFlash('success', 'Votre compte a bien été crée. ');
+
             return $this->redirectToRoute('app_login');
         }
         return $this->render('pages/registration/index.html.twig', [

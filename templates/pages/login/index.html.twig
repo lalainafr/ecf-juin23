@@ -5,19 +5,21 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container my-5">
+	<div
+		class="container my-5">
 
-        {# Message flash #}
-		{% if error %}
-			<div class="alert alert-danger">
-				<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-			</div>
-		{% endif %}
+		{# Message flash #}
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
 
 		<h1 class="text-center amatic">C O N N E X I O N</h1>
 		<br><br>
 
-  		<!-- Formulaire de connexion -->
+		<!-- Formulaire de connexion -->
 		<section class="row justify-content-center">
 			<div class="col-md-4">
 				<form action="{{ path('app_login') }}" method="post">
