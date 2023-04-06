@@ -12,13 +12,16 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fullName')
+            ->add('fullName', TextType::class, [
+                'label' => 'Nom et Prénom'
+            ])
             ->add('email')
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

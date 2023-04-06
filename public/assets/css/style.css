@@ -1,53 +1,56 @@
-*
-{
+* {
     font-family: 'Raleway', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
 }
 
-.passion
-{
+.passion {
     font-family: 'Passions Conflict', cursive;
     font-size: 40px;
 }
 
-.amatic{
+.amatic {
     font-family: 'Amatic SC', cursive;
+    font-size: 40px;
 }
 
-.amatic.title{
+.amatic.title {
     font-size: 80px;
 }
 
-.img-flaticon{
+header .navbar{
+    background-color: rgb(154, 173, 183, 0.03);
+}
+
+.img-flaticon {
 
     width: 40px;
 }
 
-.logo-menu{
+.logo-menu {
     width: 30px;
     height: 30px;
 }
 
 
-.caroussel-image{
+.caroussel-image {
     width: 100%;
 }
 
-.image4{
+.image4 {
     width: 260px;
     height: 350px;
     margin-bottom: 20px;
 }
 
-.subtitle{
+.subtitle {
     font-size: 30px;
 }
 
-.userName{
-    color:darksalmon
+.userName {
+    color: darksalmon
 }
 
-.article_home{
+.article_home {
     background-color: rgb(179, 173, 173, 0.07);
     padding: 20px;
 }
@@ -56,17 +59,17 @@
 .image_container {
     position: relative;
     width: 100%;
-  }
-  
+}
+
 .image {
     opacity: 1;
-    display:inline;
-    width:185px;
+    display: inline;
+    width: 185px;
     height: 165px;
     transition: .5s ease;
     backface-visibility: hidden;
     margin: 10px;
- }
+}
 
 .middle {
     transition: .5s ease;
@@ -77,64 +80,64 @@
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     text-align: center;
-} 
+}
 
 .image_container:hover .image {
     opacity: 0.3;
 }
-  
+
 .image_container:hover .middle {
     opacity: 1;
 }
-  
+
 .text {
     color: #5f6983;
     font-size: 16px;
     padding: 16px 32px;
-} 
-
-img.image-carte{
-    width: 180px;
-    height:160px
 }
 
-img.detail-img{
+img.image-carte {
+    width: 180px;
+    height: 160px
+}
+
+img.detail-img {
     width: 90%;
 }
 
-span.dishcat{
+span.dishcat {
     text-decoration: none;
-    color:#407d9e;
+    color: #407d9e;
     font-size: 35px;
 }
 
-.plat-logo{
+.plat-logo {
     font-size: 60px;
     font-family: 'Unica One', cursive;
     margin-top: 20px;
 }
 
 
-.align-right{
+.align-right {
     text-align: end;
 }
 
-.menu-img{
+.menu-img {
     border-radius: 50%;
     width: 110px;
     height: 110px;
 }
 
-.fleche{
+.fleche {
     width: 20px;
 }
 
-div .bg-formula{
+div .bg-formula {
     padding: 15px;
     background-color: rgba(64, 125, 158, 0.04);
 }
 
-div .bg-plat{
+div .bg-plat {
     padding: 15px;
     background-color: rgba(64, 125, 158, 0.04);
 }
@@ -147,45 +150,61 @@ footer .footer {
 /* --------- REPONSIVE ------------
 
  /* Responsive for Small devices (landscape phones, 576px and up) */
-@media screen and (min-width: 576px){
-    .image {
-    width: 200px;
-    height: 180px;
-    }    
-     .middle {
+@media screen and (min-width: 576px) {
+    * {
+        font-family: 'Raleway', sans-serif;
+        font-size: 24px;
+    }
+    .middle {
         top: 100px;
         left: 110px;
-    }   
+    }
+
+    .caroussel-image {
+        width: 100%;
+        height: auto;
+    }
+
 }
 
 /* Responsive for Medium devices (tablets, 768px and up) */
-@media screen and (min-width: 768px){
+@media screen and (min-width: 768px) {
     .image {
         width: 220px;
         height: 200px;
-    }   
+    }
+
     .middle {
         top: 110px;
         left: 120px;
-    } 
-    img.image-carte{
+    }
+
+    img.image-carte {
         display: inline;
         width: 250px;
-        height:220px
+        height: 220px
     }
-    
-}  
+    * {
+        font-family: 'Raleway', sans-serif;
+        font-size: 20px;
+    }
+
+}
 
 
 /* Responsive for Large devices (desktops, 992px and up) */
- @media screen and (min-width: 992px) { 
-    .image4{
+@media screen and (min-width: 992px) {
+    .image4 {
         width: 280px;
         height: 480px;
     }
+
+    * {
+        font-family: 'Raleway', sans-serif;
+        font-size: 18px;
+    }
+
 }
 
 /* Responsive for Extra large devices (large desktops, 1200px and up) */
-@media screen and (min-width: 1200px) { 
-
-}
+@media screen and (min-width: 1200px) {}
