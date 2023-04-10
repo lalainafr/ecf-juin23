@@ -81,9 +81,9 @@ Sur hostinger
 * Installer le fichier .htaccess 
 
 Sur un terminal
-* Se connecter dans le shell bash de hostinger à partir de la la clé SSH
+* Se connecter dans le shell bash de hostinger à partir de la clé SSH
     * Aller dans le dossier concerné
-    * Mettre à jour Composer
+    * Installer et mettre à jour Composer
     * Installer les dépendances (php bin console composer.phar.install ou update)
     * Faire les migrations (php bin console doctrine:migrations:migrate)
     * Faire les fixtures (php bin console doctrine:fixture:load)
@@ -103,11 +103,13 @@ Une fois cela fait :
 
 * Cloner le projet
   * ````git clone https://github.com/lalainafr/ecf-juin23.git````
-* Créer une copie du .env en le nommant .env.local
-  * ````cp .env .env.local````
-* Modifier le fichier .env.local afin de le rendre compatible avec votre environement
+* Créer un fichier .env.local
+* Y mettre la base de données à créer pour le test
+````ex: DATABASE_URL="mysql://root:root@127.0.0.1:3306/ecf_test?serverVersion=8&charset=utf8mb4" ````
 * Installer les dépendances php
   * ````composer install````
+* Créer la base de données en local
+  * ```php bin/console d:d:c```
 * Exécuter les migrations sur la base de données
   * ```php bin/console doctrine:migrations:migrate```
 * Créer un compte admin et quelques utilisateurs
