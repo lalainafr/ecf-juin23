@@ -3,7 +3,7 @@
 [![CircleCI](https://ecf-studi.lalaina.rajaonahsoa.fr)](https://github.com/lalainafr/ecf-juin23.git)
 
 ## Description :
-Réaliser une application qui permet de gerer la réservation en ligne permettant d'un restaurant. L'application offre les fonctionalités qui permettent la création de compte client et admin, la gestion des galeries d'image sur la page d'accueil, la gestion des cartes, plats et menus, la gestion des horaires d'ouverture, la gestion des réservations, et l'ajout d'allergie par le client
+Réaliser une application qui permet de gerer la réservation en ligne d'un restaurant. L'application offre les fonctionalités qui permettent la création de compte client et admin, la gestion des galeries d'image sur la page d'accueil, la gestion des cartes, plats et menus, la gestion des horaires d'ouverture, la gestion des réservations, et l'ajout d'allergie par le client
 
 
 Détails du projet
@@ -23,14 +23,14 @@ Réaliser une application qui simule une gestion de restaurant  en ligne permett
 * Le visiteur poura consulter les galeries d'images dans la page d'accueil, les horaires d'ouverture les menus ainsi que les plats proposés par le restaurant.
 
 ##### Client : 
-* Le client peut soumettre une demande de création de compte pour les nouveaux clients. La création de compte s’effectue à travers un formulaire. une fois connecté, le client sera en mesure de mettre un nombre convive et et les allergies par défaut. Il pourra gérer ses propres réservations (consulter, modifier, supprimer). Il pourra consulter les galeries d'images dans la page d'accueil, les horaires d'ouverture le menu ainsi que les plats proposés par le restaurant.
+* Le client peut soumettre une demande de création de compte pour les nouveaux clients. La création de compte s’effectue à travers un formulaire. une fois connecté, le client sera en mesure de mettre un nombre convive et des allergies par défaut. Il pourra gérer ses propres réservations (consulter, modifier, supprimer). Il pourra consulter les galeries d'images dans la page d'accueil, les horaires d'ouverture le menu ainsi que les plats proposés par le restaurant.
 
 ##### Admin :
-* L'administrateur aura accès à une interface pour gérer les résecvations des clients (consuler, modifier, supprimer). Il pourra accèder aussi au panel d'administration afin de gérer les galeries d'images sur la page d'accueil, les menu, les plats, les utilisateurs, les horaires d'ouverture, les disponibilités et les catégories des plats.
+* L'administrateur aura accès à une interface pour gérer les résevations des clients (consuler, modifier, supprimer). Il pourra accèder aussi au panel d'administration afin de gérer les galeries d'images sur la page d'accueil, les menu, les plats, les utilisateurs, les horaires d'ouverture, les disponibilités et les catégories des plats.
 
 ### Descriptions des fonctionnalités :
 #### Souscription et connexion : 
-Tout visiteur aura la possibilité d'acceder à une page pour s'inscrire, ensuite une autre page lui permettra de se connecter en entrant ses identifinats (emeil et mot passe). Les mots de passe seront sécurisés.
+Tout visiteur aura la possibilité d'acceder à une page pour s'inscrire, ensuite une autre page lui permettra de se connecter en entrant ses identifinats (email et mot passe). Les mots de passe seront sécurisés.
 
 #### Galerie d'images : 
 L'administrateur aura la possibilté de gérer (ajouter, modifier, supprimer) les Galeries d'images (les plats les plus appreciés) qui sont visibles sur la page d'accueil du site web. Au survol de l'image dans la galerie, son titre apparaitra.
@@ -66,8 +66,7 @@ Le client (utilisateur connecté) aura la possibilté de rajouter des allergies 
 
 Guide d'utilisation
 =========
-Le guide d'utilisation ce trouve dans le dossier pdf. 
-Vous pouvez également cliquer sur ce [lien](https://github.com/...)
+Le guide d'utilisation se trouve dans le dossier pdf. 
 
 Déploiement
 =========
@@ -96,8 +95,6 @@ Installation en local
 ====================
 
 Pour installer le projet en local. Vous devez avoir un environement de développement correctement configuré.
-
-[Mettre en place un environement de développement](https://symfony.com/doc/current/setup.html)
 
 Une fois cela fait :
 
