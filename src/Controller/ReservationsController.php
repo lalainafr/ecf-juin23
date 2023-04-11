@@ -49,6 +49,10 @@ class ReservationsController extends AbstractController
 
             $reservation = $form->getData();
 
+            // securité supplementaire pour inviter les attaques xss et les injections sql
+            $fullName = $reservation->getFullName();
+            $reservation->setFullName(htmlentities($fullName));
+
             $nbPerson = $reservation->getNbPerson();
 
             // --- NE PAS PERMETTRE DE CHOISIR UNE DATE ANTERIEUR A LA DATE DU JOUR ---

@@ -43,8 +43,12 @@ class LoginController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $plain_pwd = $form->getData()->getPlainPassword();
+            // hasher le mot de passe pour raison de sécurité
             $hash = $hasher->hashPassword($user, $plain_pwd);
             $form->getData()->setPassword($hash);
+            // securité supplementaire pour inviter les attaques xss et les injections sql
+            $fullName = $form->getData()->getFullName();
+            $form->getData()->setFullName(htmlentities($fullName));
             $em->persist($form->getData());
             $em->flush();
             $this->addFlash('success', 'Votre compte a bien été crée. ');
