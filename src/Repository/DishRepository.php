@@ -43,7 +43,7 @@ class DishRepository extends ServiceEntityRepository
    /**
     * @return Dish[] Returns an array of Dish objects
     */
-   public function findByFavoriteDish(): array
+   public function findFavoriteDish(): array
    {
        return $this->createQueryBuilder('d')
            ->andWhere('d.isFavorite = :val')

@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 
 class RegistrationType extends AbstractType
 {
@@ -22,7 +24,7 @@ class RegistrationType extends AbstractType
             ->add('fullName', TextType::class, [
                 'label' => 'Nom et Prénom'
             ])
-            ->add('email')
+            ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'constraints' => [
